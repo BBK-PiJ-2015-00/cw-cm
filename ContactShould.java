@@ -8,11 +8,13 @@ import org.junit.Before;
 public class ContactShould {
 	private Contact contact1;
 	private Contact contact2;
+	private Contact dud;
 	
 	@Before
 	public void createContact() {
 		contact1 = new ContactImpl(1, "Sam", "Not nice");		
-		contact2 = new ContactImpl(2, "Jenna");		
+		contact2 = new ContactImpl(2, "Jenna");
+		dud = null;
 	}
 	
 	@Test
@@ -24,7 +26,6 @@ public class ContactShould {
 	@Test
 	public void throwIllegalArgumentWhenIDLessThanOrEqualToZeroWithThreePerams() {
 		boolean isIllegal = false;
-		Contact dud = null;
 		try {
 			dud = new ContactImpl(0, "Sam", "Not nice");
 		} catch (IllegalArgumentException ex) {
@@ -36,8 +37,7 @@ public class ContactShould {
 	
 	@Test
 	public void throwIllegalArgumentWhenIDLessThanOrEqualToZeroWithTwoPerams() {
-		boolean isIllegal = false;
-		Contact dud = null;		
+		boolean isIllegal = false;	
 		try {
 			dud = new ContactImpl(-1, "Sam");
 		} catch (IllegalArgumentException ex) {
@@ -73,6 +73,7 @@ public class ContactShould {
 		assertEquals("Not nice, but at least he cooks well.", contact1.getNotes());
 		assertEquals("Very smelly.", contact2.getNotes());
 	}
+	
 }
 
 
