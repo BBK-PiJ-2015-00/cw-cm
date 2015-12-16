@@ -64,6 +64,15 @@ public class ContactShould {
 		assertEquals("Not nice", contact1.getNotes());
 		assertEquals("", contact2.getNotes());
 	}
+	
+	@Test
+	public void addTheNotes() {
+		contact1.addNotes(", but at least he cooks well.");
+		contact2.addNotes("Very smelly.");
+		
+		assertEquals("Not nice, but at least he cooks well.", contact1.getNotes());
+		assertEquals("Very smelly.", contact2.getNotes());
+	}
 }
 
 
