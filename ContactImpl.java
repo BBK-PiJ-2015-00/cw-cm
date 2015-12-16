@@ -1,6 +1,7 @@
 public class ContactImpl implements Contact {
 	private int c_id;
 	private String c_name;
+	private String c_notes;	
 	
 	public ContactImpl(int id, String name, String notes) {
 		if(id<=0) {
@@ -9,6 +10,7 @@ public class ContactImpl implements Contact {
 		
 		this.c_id = id;
 		this.c_name = name;
+		this.c_notes = notes;
 	}
 	
 	public ContactImpl(int id, String name) {
@@ -18,6 +20,7 @@ public class ContactImpl implements Contact {
 		
 		this.c_id = id;
 		this.c_name = name;
+		this.c_notes = "";
 	}
 	
 	public int getId() {
@@ -29,7 +32,7 @@ public class ContactImpl implements Contact {
 	}
 	
 	public String getNotes() {
-		return "";
+		return c_notes;
 	}
 	
 	public void addNotes(String note) {
