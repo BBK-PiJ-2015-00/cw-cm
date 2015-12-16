@@ -5,6 +5,7 @@ public class ContactImpl implements Contact {
 		if(id<=0) {
 			throw new IllegalArgumentException();
 		}
+		
 	}
 	
 	public ContactImpl(int id, String name) {
