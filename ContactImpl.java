@@ -6,6 +6,8 @@ public class ContactImpl implements Contact {
 	public ContactImpl(int id, String name, String notes) {
 		if(id<=0) {
 			throw new IllegalArgumentException();
+		} else if (name.equals(null)) {
+			throw new NullPointerException();
 		}
 		
 		this.c_id = id;
@@ -16,6 +18,8 @@ public class ContactImpl implements Contact {
 	public ContactImpl(int id, String name) {
 		if(id<=0) {
 			throw new IllegalArgumentException();
+		} else if (name.equals(null)) {
+			throw new NullPointerException();
 		}
 		
 		this.c_id = id;
