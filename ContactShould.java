@@ -23,24 +23,28 @@ public class ContactShould {
 	
 	@Test
 	public void throwIllegalArgumentWhenIDLessThanOrEqualToZeroWithThreePerams() {
-		boolean isIllegal = false;		
+		boolean isIllegal = false;
+		Contact dud = null;
 		try {
-			contact1 = new ContactImpl(0, "Sam", "Not nice");
+			dud = new ContactImpl(0, "Sam", "Not nice");
 		} catch (IllegalArgumentException ex) {
 			isIllegal = true;
 		}
 		assertTrue(isIllegal);
+		assertNull(dud);
 	}
 	
 	@Test
 	public void throwIllegalArgumentWhenIDLessThanOrEqualToZeroWithTwoPerams() {
-		boolean isIllegal = false;		
+		boolean isIllegal = false;
+		Contact dud = null;		
 		try {
-			contact1 = new ContactImpl(-1, "Sam");
+			dud = new ContactImpl(-1, "Sam");
 		} catch (IllegalArgumentException ex) {
 			isIllegal = true;
 		}
 		assertTrue(isIllegal);
+		assertNull(dud);
 	}
 	
 	@Test
