@@ -58,6 +58,12 @@ public class ContactShould {
 		assertEquals("Sam", contact1.getName());
 		assertEquals("Jenna", contact2.getName());
 	}
+	
+	@Test
+	public void getTheNotes() {
+		assertEquals("Not nice", contact1.getNotes());
+		assertEquals("", contact2.getNotes());
+	}
 }
 
 
