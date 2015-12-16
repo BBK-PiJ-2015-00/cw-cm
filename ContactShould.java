@@ -40,7 +40,7 @@ public class ContactShould {
 	}
 	
 	@Test
-	void getId() {
+	public void getId() {
 		contact = new ContactImpl(1, "Sam", "Not nice");
 		assertEquals(1, contact.getId());
 		
