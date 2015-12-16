@@ -27,4 +27,15 @@ public class ContactShould {
 		}
 		assertTrue(isIllegal);
 	}
+	
+	@Test
+	public void throwIllegalArgumentWhenIDLessThanOrEqualToZeroWithTwoPerams() {
+		boolean isIllegal = false;		
+		try {
+			contact = new ContactImpl(-1, "Sam");
+		} catch (IllegalArgumentException ex) {
+			isIllegal = true;
+		}
+		assertTrue(isIllegal);
+	}
 }
