@@ -16,15 +16,7 @@ public class ContactImpl implements Contact {
 	}
 	
 	public ContactImpl(int id, String name) {
-		if(id<=0) {
-			throw new IllegalArgumentException();
-		} else if (name.equals(null)) {
-			throw new NullPointerException();
-		}
-		
-		this.c_id = id;
-		this.c_name = name;
-		this.c_notes = "";
+		this(id, name, "");
 	}
 	
 	public int getId() {
