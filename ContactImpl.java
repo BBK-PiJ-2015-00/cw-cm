@@ -8,7 +8,9 @@ public class ContactImpl implements Contact {
 	}
 	
 	public ContactImpl(int id, String name) {
-		
+		if(id<=0) {
+			throw new IllegalArgumentException();
+		}
 	}
 	
 	public int getId() {
