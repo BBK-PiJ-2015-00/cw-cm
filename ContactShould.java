@@ -53,6 +53,11 @@ public class ContactShould {
 		assertEquals(2, contact2.getId());
 	}
 	
+	@Test
+	public void getTheName() {
+		assertEquals("Sam", contact1.getName());
+		assertEquals("Jenna", contact2.getName());
+	}
 }
 
 
