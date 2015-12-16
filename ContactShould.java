@@ -11,5 +11,6 @@ public class ContactShould {
 	@Test
 	public void createContact() {
 		contact = new ContactImpl();
+		assertNotNull(contact);
 	}
 }
