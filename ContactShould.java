@@ -74,6 +74,30 @@ public class ContactShould {
 		assertEquals("Very smelly.", contact2.getNotes());
 	}
 	
+	@Test
+	public void throwNullPointerExceptionWhenNameIsNull() {
+		String name = null;
+		
+		//test 3 parameters		
+		boolean isIllegal = false;
+		try {
+			dud = new ContactImpl(5, name, "notes");
+		} catch (NullPointerException ex) {
+			isIllegal = true;
+		}
+		assertTrue(isIllegal);
+		assertNull(dud);
+		
+		//test 2 parameters
+		isIllegal = false;
+		try {
+			dud = new ContactImpl(5, name);
+		} catch (NullPointerException ex) {
+			isIllegal = true;
+		}
+		assertTrue(isIllegal);
+		assertNull(dud);
+	}
 }
 
 
