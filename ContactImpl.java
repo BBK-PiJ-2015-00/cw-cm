@@ -6,7 +6,7 @@ public class ContactImpl implements Contact {
 	public ContactImpl(int id, String name, String notes) {
 		if(id<=0) {
 			throw new IllegalArgumentException();
-		} else if (name.equals(null)) {
+		} else if (name.equals(null) || notes.equals(null)) {
 			throw new NullPointerException();
 		}
 		
