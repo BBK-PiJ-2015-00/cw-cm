@@ -98,6 +98,20 @@ public class ContactShould {
 		assertTrue(isIllegal);
 		assertNull(dud);
 	}
+	
+	@Test
+	public void throwNullPointerExceptionWhenNoteIsNull() {
+		String note = null;
+			
+		boolean isIllegal = false;
+		try {
+			dud = new ContactImpl(5, "dud", note);
+		} catch (NullPointerException ex) {
+			isIllegal = true;
+		}
+		assertTrue(isIllegal);
+		assertNull(dud);
+	}
 }
 
 
