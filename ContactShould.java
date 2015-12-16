@@ -38,4 +38,13 @@ public class ContactShould {
 		}
 		assertTrue(isIllegal);
 	}
+	
+	@Test
+	void getId() {
+		contact = new ContactImpl(1, "Sam", "Not nice");
+		assertEquals(1, contact.getId());
+		
+		contact = new ContactImpl(2, "Jenna");
+		assertEquals(2, contact.getId());
+	}
 }
