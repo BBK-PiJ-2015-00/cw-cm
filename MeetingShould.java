@@ -44,4 +44,27 @@ public class MeetingShould {
 		Calendar expected = (Calendar) date.clone();
 		assertEquals(expected, futureMeeting.getDate());
 	}
+	
+	@Test
+	public void getTheContacts() {
+		assertEquals(contacts, futureMeeting.getContacts());
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
