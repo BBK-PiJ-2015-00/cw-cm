@@ -65,6 +65,19 @@ public class MeetingShould {
 		assertTrue(isIllegal);
 		assertNull(dud);
 	}
+	
+	@Test
+	public void throwIllegalArgumentExceptionWhenContactsIsEmpty() {
+		boolean isIllegal = false;
+		Set<Contact> empty = new HashSet<>();
+		try {
+			dud = new FutureMeetingImpl(2, date, empty);
+		} catch (IllegalArgumentException ex){
+			isIllegal = true;
+		}		
+		assertTrue(isIllegal);
+		assertNull(dud);
+	}
 }
 
 
