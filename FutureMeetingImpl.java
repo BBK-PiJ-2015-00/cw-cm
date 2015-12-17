@@ -7,14 +7,17 @@ public class FutureMeetingImpl extends MeetingImpl implements FutureMeeting {
 		super(id, date, contacts);
 	}	
 	
+	@Override
 	public int getId() {
 		return super.getId();
 	}
 	
+	@Override
 	public Calendar getDate() {
 		return super.getDate();
 	}
 	
+	@Override
 	public Set<Contact> getContacts() {
 		return super.getContacts();
 	}
