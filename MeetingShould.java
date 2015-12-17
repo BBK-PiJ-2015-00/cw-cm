@@ -26,4 +26,9 @@ public class MeetingShould {
 	public void createMeetings() {
 		futureMeeting = new FutureMeetingImpl(1, date, contacts);
 	}
+	
+	@Test
+	public void notBeNull() {
+		assertNotNull(futureMeeting);
+	}
 }
