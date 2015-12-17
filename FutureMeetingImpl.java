@@ -8,7 +8,7 @@ public class FutureMeetingImpl implements FutureMeeting {
 	private Set<Contact> fm_contacts;
 	
 	public FutureMeetingImpl(int id, Calendar date, Set<Contact> contacts) {
-		if(!date.isSet(0) || !date.isSet(1) || !date.isSet(2)) {
+		if(!date.isSet(0) || !date.isSet(1) || !date.isSet(2) || contacts.size() == 0) {
 			throw new IllegalArgumentException();
 		}
 		
