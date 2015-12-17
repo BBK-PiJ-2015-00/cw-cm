@@ -78,6 +78,19 @@ public class MeetingShould {
 		assertTrue(isIllegal);
 		assertNull(dud);
 	}
+	
+	@Test
+	public void throwNullPointerExceptionWhenDateIsNull() {
+		boolean isIllegal = false;
+		Calendar nullDate = null;
+		try {
+			dud = new FutureMeetingImpl(2, nullDate, contacts);
+		} catch (NullPointerException ex){
+			isIllegal = true;
+		}		
+		assertTrue(isIllegal);
+		assertNull(dud);
+	}
 }
 
 
