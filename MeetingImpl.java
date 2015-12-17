@@ -8,7 +8,8 @@ public abstract class MeetingImpl implements Meeting {
 	private Set<Contact> m_contacts;
 	
 	public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
-		if(!date.isSet(0) || !date.isSet(1) || !date.isSet(2) || contacts.size() == 0) {
+		//Will also throw NullPointerException if date or contacts is Null.
+		if(id <= 0 || !date.isSet(0) || !date.isSet(1) || !date.isSet(2) || contacts.size() == 0) {
 			throw new IllegalArgumentException();
 		}
 		
