@@ -91,6 +91,19 @@ public class MeetingShould {
 		assertTrue(isIllegal);
 		assertNull(dud);
 	}
+	
+	@Test
+	public void throwNullPointerExceptionWhenContactsIsNull() {
+		boolean isIllegal = false;
+		Set<Contact> nullContacts = null;
+		try {
+			dud = new FutureMeetingImpl(2, date, nullContacts);
+		} catch (NullPointerException ex){
+			isIllegal = true;
+		}		
+		assertTrue(isIllegal);
+		assertNull(dud);
+	}
 }
 
 
