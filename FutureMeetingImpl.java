@@ -8,6 +8,10 @@ public class FutureMeetingImpl implements FutureMeeting {
 	private Set<Contact> fm_contacts;
 	
 	public FutureMeetingImpl(int id, Calendar date, Set<Contact> contacts) {
+		if(!date.isSet(0) || !date.isSet(1) || !date.isSet(2)) {
+			throw new IllegalArgumentException();
+		}
+		
 		fm_id = id;
 		fm_date = date;
 		fm_contacts = contacts;
