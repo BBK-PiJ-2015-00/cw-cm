@@ -12,7 +12,7 @@ import org.junit.BeforeClass;
 public class MeetingShould {
 	
 	private Meeting futureMeeting;
-	private Meeting dud;
+	private Meeting dud = null;
 	private static Calendar date = Calendar.getInstance();
 	private static Set<Contact> contacts;
 	
@@ -63,6 +63,7 @@ public class MeetingShould {
 			isIllegal = true;
 		}		
 		assertTrue(isIllegal);
+		assertNull(dud);
 	}
 }
 
