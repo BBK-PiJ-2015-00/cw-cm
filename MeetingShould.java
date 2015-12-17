@@ -38,4 +38,10 @@ public class MeetingShould {
 	public void getTheId() {
 		assertEquals(1, futureMeeting.getId());
 	}
+	
+	@Test
+	public void getTheDate() {
+		Calendar expected = (Calendar) date.clone();
+		assertEquals(expected, futureMeeting.getDate());
+	}
 }
