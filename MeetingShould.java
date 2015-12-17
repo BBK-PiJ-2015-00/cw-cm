@@ -104,6 +104,19 @@ public class MeetingShould {
 		assertTrue(isIllegal);
 		assertNull(dud);
 	}
+	
+	@Test
+	public void throwIllegalArgumentExceptionWhenIdIsLessThanOne() {
+		boolean isIllegal = false;
+		int num = 0;
+		try {
+			dud = new FutureMeetingImpl(num, date, contacts);
+		} catch (IllegalArgumentException ex){
+			isIllegal = true;
+		}		
+		assertTrue(isIllegal);
+		assertNull(dud);
+	}	
 }
 
 
