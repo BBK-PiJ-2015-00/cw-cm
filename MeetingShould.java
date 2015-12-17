@@ -1,5 +1,6 @@
 import java.util.Calendar;
 import java.util.Set;
+import java.util.HashSet;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -16,6 +17,7 @@ public class MeetingShould {
 	
 	@BeforeClass
 	public static void buildUp() {
+		contacts = new HashSet<>();
 		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
 		contacts.add(new ContactImpl(2, "Jenna"));
 		contacts.add(new ContactImpl(3, "Arthur"));
