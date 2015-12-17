@@ -33,4 +33,9 @@ public class MeetingShould {
 	public void notBeNull() {
 		assertNotNull(futureMeeting);
 	}
+	
+	@Test
+	public void getTheId() {
+		assertEquals(1, futureMeeting.getId());
+	}
 }
