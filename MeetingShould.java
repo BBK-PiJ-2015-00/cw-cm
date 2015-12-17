@@ -12,11 +12,13 @@ import org.junit.BeforeClass;
 public class MeetingShould {
 	
 	private Meeting futureMeeting;
-	private Calendar date = Calendar.getInstance();
+	private Meeting dud;
+	private static Calendar date = Calendar.getInstance();
 	private static Set<Contact> contacts;
 	
 	@BeforeClass
 	public static void buildUp() {
+		date.set(2015, 12, 10);
 		contacts = new HashSet<>();
 		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
 		contacts.add(new ContactImpl(2, "Jenna"));
@@ -25,7 +27,7 @@ public class MeetingShould {
 	}
 	
 	@Before
-	public void createMeetings() {
+	public void createMeetings() {		
 		futureMeeting = new FutureMeetingImpl(1, date, contacts);
 	}
 	
@@ -48,6 +50,18 @@ public class MeetingShould {
 	@Test
 	public void getTheContacts() {
 		assertEquals(contacts, futureMeeting.getContacts());
+	}
+	
+	@Test
+	public void throwIllegalArgumentExceptionWhenDateIsEmpty() {
+		boolean isIllegal = false;
+		Calendar empty = Calendar.getInstance();
+		try {
+			dud = new FutureMeetingImpl(2, empty, contacts);
+		} catch (IllegalArgumentException ex){
+			isIllegal = true;
+		}		
+		assertTrue(isIllegal);
 	}
 }
 
