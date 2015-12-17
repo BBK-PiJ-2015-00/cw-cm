@@ -56,6 +56,7 @@ public class MeetingShould {
 	public void throwIllegalArgumentExceptionWhenDateIsEmpty() {
 		boolean isIllegal = false;
 		Calendar empty = Calendar.getInstance();
+		empty.clear();
 		try {
 			dud = new FutureMeetingImpl(2, empty, contacts);
 		} catch (IllegalArgumentException ex){
