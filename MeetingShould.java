@@ -55,6 +55,7 @@ public class MeetingShould {
 	@Test
 	public void getTheContacts() {
 		assertEquals(contacts, futureMeeting.getContacts());
+		assertEquals(contacts, pastMeeting.getContacts());
 	}
 	
 	@Test
