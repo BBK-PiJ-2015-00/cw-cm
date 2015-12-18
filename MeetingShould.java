@@ -174,6 +174,9 @@ public class MeetingShould {
 	public void getTheNotes() {
 		PastMeeting pm = new PastMeetingImpl(3, date, contacts, "notes");
 		assertEquals("notes", pm.getNotes());
+		
+		pm = new PastMeetingImpl(3, date, contacts, "");
+		assertEquals("", pm.getNotes());
 	}
 	
 	@Test
