@@ -168,7 +168,12 @@ public class MeetingShould {
 		}		
 		assertTrue(isIllegal);
 		assertNull(dud);
-	}	
+	}
+
+	@Test
+	public void getTheNotes() {
+		assertEquals("hello", pastMeeting.getNotes());
+	}
 }
 
 
