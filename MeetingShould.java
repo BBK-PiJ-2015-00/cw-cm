@@ -172,7 +172,8 @@ public class MeetingShould {
 
 	@Test
 	public void getTheNotes() {
-		assertEquals("hello", pastMeeting.getNotes());
+		PastMeeting pm = new PastMeetingImpl(3, date, contacts, "notes");
+		assertEquals("notes", pm.getNotes());
 	}
 }
 
