@@ -158,6 +158,16 @@ public class MeetingShould {
 		}		
 		assertTrue(isIllegal);
 		assertNull(dud);
+		
+		isIllegal = false;
+		num = -1;
+		try {
+			dud = new PastMeetingImpl(num, date, contacts, "hello");
+		} catch (IllegalArgumentException ex){
+			isIllegal = true;
+		}		
+		assertTrue(isIllegal);
+		assertNull(dud);
 	}	
 }
 
