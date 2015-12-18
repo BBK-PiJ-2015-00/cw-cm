@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 public class MeetingShould {
 	
 	private Meeting futureMeeting;
+	private Meeting pastMeeting;
 	private Meeting dud = null;
 	private static Calendar date = Calendar.getInstance();
 	private static Set<Contact> contacts;
@@ -29,6 +30,7 @@ public class MeetingShould {
 	@Before
 	public void createMeetings() {		
 		futureMeeting = new FutureMeetingImpl(1, date, contacts);
+		pastMeeting = new PastMeetingImpl(2, date, contacts, "hello");
 	}
 	
 	@Test
