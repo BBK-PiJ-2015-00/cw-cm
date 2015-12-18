@@ -136,6 +136,15 @@ public class MeetingShould {
 		}		
 		assertTrue(isIllegal);
 		assertNull(dud);
+		
+		isIllegal = false;
+		try {
+			dud = new PastMeetingImpl(2, date, nullContacts, "hello");
+		} catch (NullPointerException ex){
+			isIllegal = true;
+		}		
+		assertTrue(isIllegal);
+		assertNull(dud);
 	}
 	
 	@Test
