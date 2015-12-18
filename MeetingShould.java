@@ -175,6 +175,19 @@ public class MeetingShould {
 		PastMeeting pm = new PastMeetingImpl(3, date, contacts, "notes");
 		assertEquals("notes", pm.getNotes());
 	}
+	
+	@Test
+	public void throwNullPointerExceptionWhenNotesIsNull() {
+		boolean isIllegal = false;
+		String nullNotes = null;
+		try {
+			dud = new PastMeetingImpl(2, date, contacts, nullNotes);
+		} catch (NullPointerException ex) {
+			isIllegal = true;
+		}
+		assertTrue(isIllegal);
+		assertNull(dud);
+	}
 }
 
 
