@@ -36,17 +36,20 @@ public class MeetingShould {
 	@Test
 	public void notBeNull() {
 		assertNotNull(futureMeeting);
+		assertNotNull(pastMeeting);
 	}
 	
 	@Test
 	public void getTheId() {
 		assertEquals(1, futureMeeting.getId());
+		assertEquals(2, pastMeeting.getId());
 	}
 	
 	@Test
 	public void getTheDate() {
 		Calendar expected = (Calendar) date.clone();
 		assertEquals(expected, futureMeeting.getDate());
+		assertEquals(expected, pastMeeting.getDate());
 	}
 	
 	@Test
