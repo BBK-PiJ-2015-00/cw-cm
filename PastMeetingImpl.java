@@ -11,6 +11,6 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 	}
 	
 	public String getNotes() {
-		return "";
+		return pm_notes;
 	}
 }
