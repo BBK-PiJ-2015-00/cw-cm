@@ -10,7 +10,7 @@ public class ContactManagerShould {
 	
 	@Before
 	public void createManager() {
-		contactManager = new contactManagerImpl();
+		contactManager = new ContactManagerImpl();
 	}
 	
 	@Test
