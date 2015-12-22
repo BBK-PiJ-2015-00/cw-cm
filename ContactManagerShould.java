@@ -30,4 +30,9 @@ public class ContactManagerShould {
 		
 		assertTrue(contactManager.addFutureMeeting(conts, futureDate) > 0);
 	}
+	
+	@Test
+	public void returnNullIfCannotFindPastMeeting() {
+		assertNull(contactManager.getPastMeeting(-1));
+	}
 }
