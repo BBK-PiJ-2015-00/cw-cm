@@ -1,5 +1,8 @@
-import static org.junit.Assert.*;
+import java.util.Calendar;
+import java.util.Set;
+import java.util.HashSet;
 
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
 
@@ -18,4 +21,13 @@ public class ContactManagerShould {
 		assertNotNull(contactManager);
 	}
 	
+	@Test
+	public void returnGreaterThanZeroWhenAddFutureMeeting() {
+		Set<Contact> conts = new HashSet<>(); 
+		conts.add(new ContactImpl(1, "Sam", "Not nice"));
+		Calendar futureDate = Calendar.getInstance();
+		futureDate.set(3000, 12, 10);
+		
+		assertTrue(contactManager.addFutureMeeting(conts, futureDate) > 0);
+	}
 }
