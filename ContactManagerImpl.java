@@ -1,12 +1,22 @@
 import java.util.Calendar;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Set;
 
 public class ContactManagerImpl implements ContactManager {
 	
+	private List<Meeting> meetings;
+	private int uniqueId;
+	
+	public ContactManagerImpl() {
+		meetings = new ArrayList<Meeting>();
+		uniqueId = 0;
+	}
 	
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		return 1;
+		uniqueId++;
+		meetings.add(new FutureMeetingImpl(uniqueId, date, contacts));
+		return uniqueId;
 	}
 	
 	public PastMeeting getPastMeeting(int id) {
@@ -14,7 +24,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public FutureMeeting getFutureMeeting(int id) {
-		return null;
+		return (FutureMeeting) meetings.get(0);
 	}
 	
 	public Meeting getMeeting(int id) {
