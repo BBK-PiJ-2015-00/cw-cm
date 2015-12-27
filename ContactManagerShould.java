@@ -48,5 +48,7 @@ public class ContactManagerShould {
 		FutureMeeting expected = new FutureMeetingImpl(id, futureDate, contacts);
 		
 		assertEquals(id, contactManager.getFutureMeeting(id).getId());
+		assertEquals(futureDate, contactManager.getFutureMeeting(id).getDate());
+		assertEquals(contacts, contactManager.getFutureMeeting(id).getContacts());
 	}
 }
