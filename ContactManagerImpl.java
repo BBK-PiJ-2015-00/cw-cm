@@ -34,6 +34,12 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public Meeting getMeeting(int id) {
+		FutureMeeting current = (FutureMeeting) meetings.get(0);
+		
+		if(id == current.getId()) {
+			return current;
+		}
+		
 		return null;
 	}
 	
