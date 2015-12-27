@@ -2,6 +2,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.Iterator;
 
 public class ContactManagerImpl implements ContactManager {
 	
@@ -38,7 +39,22 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public List<Meeting> getFutureMeetingList(Contact contact) {
-		return null;
+		List<Meeting> result = new ArrayList<Meeting>();
+		
+		for(int i = 0; i < meetings.size(); i++) {
+			Meeting currentMeeting = meetings.get(i);
+			Set<Contact> contacts = currentMeeting.getContacts();
+			
+			for(Iterator<Contact> it = contacts.iterator(); it.hasNext(); ) {
+				Contact currentContact = it.next();
+				if(currentContact.getId() == contact.getId()) {
+					result.add(currentMeeting);
+					break;
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	public List<Meeting> getMeetingListOn(Calendar date) {
