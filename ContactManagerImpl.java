@@ -24,17 +24,11 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public FutureMeeting getFutureMeeting(int id) {
-		FutureMeeting current = (FutureMeeting) meetings.get(0);
-		
-		if(id == current.getId()) {
-			return current;
-		}
-		
-		return null;
+		return (FutureMeeting) getMeeting(id);
 	}
 	
 	public Meeting getMeeting(int id) {
-		FutureMeeting current = (FutureMeeting) meetings.get(0);
+		Meeting current = meetings.get(0);
 		
 		if(id == current.getId()) {
 			return current;
