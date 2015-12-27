@@ -9,6 +9,7 @@ import org.junit.Before;
 //java org.junit.runner.JUnitCore ContactManagerShould
 
 public class ContactManagerShould {
+	
 	private ContactManager contactManager;
 	
 	@Before
@@ -23,16 +24,29 @@ public class ContactManagerShould {
 	
 	@Test
 	public void returnGreaterThanZeroWhenAddFutureMeeting() {
-		Set<Contact> conts = new HashSet<>(); 
-		conts.add(new ContactImpl(1, "Sam", "Not nice"));
+		Set<Contact> contacts = new HashSet<>(); 
+		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
 		Calendar futureDate = Calendar.getInstance();
 		futureDate.set(3000, 12, 10);
 		
-		assertTrue(contactManager.addFutureMeeting(conts, futureDate) > 0);
+		assertTrue(contactManager.addFutureMeeting(contacts, futureDate) > 0);
 	}
 	
 	@Test
 	public void returnNullIfCannotFindPastMeeting() {
 		assertNull(contactManager.getPastMeeting(-1));
+	}
+	
+	@Test
+	public void getTheFutureMeeting() {
+		Set<Contact> contacts = new HashSet<>(); 
+		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
+		Calendar futureDate = Calendar.getInstance();
+		futureDate.set(3000, 12, 10);
+		
+		int id = contactManager.addFutureMeeting(contacts, futureDate);
+		Meeting expected = new FutureMeetingImpl(id, futureDate, contacts);
+		
+		assertEquals(expected, contactManager.getFutureMeeting(id));
 	}
 }
