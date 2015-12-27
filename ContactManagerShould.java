@@ -1,6 +1,8 @@
 import java.util.Calendar;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -79,6 +81,41 @@ public class ContactManagerShould {
 		returnGreaterThanZeroWhenAddFutureMeeting();
 		
 		assertNull(contactManager.getMeeting(-1));
+	}
+	
+	@Test
+	public void getTheFutureMeetingListForJohn() {
+		List<Meeting> expected = addMeetings();
+		List<Meeting> actual = contactManager.getFutureMeetingList(new ContactImpl(1, "John"));
+		
+		assertEquals(expected.get(0).getId(), actual.get(0).getId());
+		assertEquals(expected.get(2).getId(), actual.get(1).getId());
+	}
+	
+	private List<Meeting> addMeetings() {
+		List<Meeting> list = new ArrayList<Meeting>();
+		Set<Contact> contacts = new HashSet<>();
+		contacts.add(new ContactImpl(1, "John"));
+		
+		Set<Contact> contacts2 = new HashSet<>();
+		contacts2.add(new ContactImpl(2, "Andrew"));
+		
+		Calendar futureDate = Calendar.getInstance();
+		int id;
+		
+		futureDate.set(3000, 12, 10);
+		id = contactManager.addFutureMeeting(contacts, futureDate);
+		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		
+		futureDate.set(3000, 10, 5);
+		id = contactManager.addFutureMeeting(contacts2, futureDate);
+		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		
+		futureDate.set(3000, 1, 1);
+		id = contactManager.addFutureMeeting(contacts, futureDate);	
+		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		
+		return list;
 	}
 }
 
