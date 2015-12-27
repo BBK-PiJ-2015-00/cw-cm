@@ -58,6 +58,21 @@ public class ContactManagerShould {
 		
 		assertNull(contactManager.getFutureMeeting(-1));
 	}
+	
+	@Test
+	public void getTheMeeting() {
+		Set<Contact> contacts = new HashSet<>(); 
+		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
+		Calendar futureDate = Calendar.getInstance();
+		futureDate.set(3000, 12, 10);
+		
+		int id = contactManager.addFutureMeeting(contacts, futureDate);
+		Meeting expected = new FutureMeetingImpl(id, futureDate, contacts);
+		
+		assertEquals(id, contactManager.getMeeting(id).getId());
+		assertEquals(futureDate, contactManager.getMeeting(id).getDate());
+		assertEquals(contacts, contactManager.getMeeting(id).getContacts());
+	}
 }
 
 
