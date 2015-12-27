@@ -73,6 +73,13 @@ public class ContactManagerShould {
 		assertEquals(futureDate, contactManager.getMeeting(id).getDate());
 		assertEquals(contacts, contactManager.getMeeting(id).getContacts());
 	}
+	
+	@Test
+	public void returnNullIfCannotFindMeeting() {
+		returnGreaterThanZeroWhenAddFutureMeeting();
+		
+		assertNull(contactManager.getMeeting(-1));
+	}
 }
 
 
