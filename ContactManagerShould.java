@@ -88,8 +88,11 @@ public class ContactManagerShould {
 		List<Meeting> expected = addMeetings();
 		List<Meeting> actual = contactManager.getFutureMeetingList(new ContactImpl(1, "John"));
 		
-		assertEquals(expected.get(0).getId(), actual.get(0).getId());
-		assertEquals(expected.get(2).getId(), actual.get(1).getId());
+		MeetingImpl firstExpected = (MeetingImpl) expected.get(0);
+		MeetingImpl secondExpected = (MeetingImpl) expected.get(2);
+		
+		assertTrue(firstExpected.equals(actual.get(0)));
+		assertTrue(secondExpected.equals(actual.get(1)));
 	}
 	
 	private List<Meeting> addMeetings() {
