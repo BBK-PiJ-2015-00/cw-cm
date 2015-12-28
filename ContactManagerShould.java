@@ -120,6 +120,15 @@ public class ContactManagerShould {
 		
 		return list;
 	}
+	
+	@Test
+	public void getFutureMeetingReturnsEmptyListWhenSusanHasNoFutureMeetings() {
+		List<Meeting> initialList = addMeetings();
+		List<Meeting> finalList = contactManager.getFutureMeetingList(new ContactImpl(3, "Susan"));
+		
+		assertEquals(3, initialList.size());
+		assertEquals(0, finalList.size());
+	}
 }
 
 
