@@ -17,4 +17,13 @@ public class PastMeetingImpl extends MeetingImpl implements PastMeeting {
 	public String getNotes() {
 		return pm_notes;
 	}
+	
+	public boolean equals(Meeting meeting) {
+		if(meeting.getClass() != PastMeetingImpl.class) {
+			return false;
+		}
+		
+		PastMeetingImpl pm = (PastMeetingImpl) meeting;
+		return (super.equals(meeting) && pm_notes.equals(pm.getNotes()));
+	}
 }
