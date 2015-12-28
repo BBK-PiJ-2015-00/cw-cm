@@ -1,7 +1,8 @@
 import java.util.Calendar;
 import java.util.Set;
+import java.util.Collections;
 
-public abstract class MeetingImpl implements Meeting {
+public abstract class MeetingImpl implements Meeting, Comparable<Meeting>{
 	
 	private int m_id;
 	private Calendar m_date;
@@ -35,5 +36,17 @@ public abstract class MeetingImpl implements Meeting {
 				m_date.equals(meeting.getDate()) &&
 				m_contacts.equals(meeting.getContacts())
 				);
+	}
+	
+	@Override
+	public int compareTo(Meeting m) {
+		Calendar comparedDate = m.getDate();
+		if (m_date.after(comparedDate)) {
+			return 1;
+		} else if (m_date.before(comparedDate)) {
+			return -1;
+		} else {
+			return 0;
+		}
 	}
 }
