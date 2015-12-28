@@ -6,18 +6,18 @@ import java.util.Iterator;
 
 public class ContactManagerImpl implements ContactManager {
 	
-	private List<Meeting> meetings;
-	private int uniqueId;
+	private List<Meeting> cm_meetings;
+	private int cm_uniqueId;
 	
 	public ContactManagerImpl() {
-		meetings = new LinkedList<Meeting>();
-		uniqueId = 0;
+		cm_meetings = new LinkedList<Meeting>();
+		cm_uniqueId = 0;
 	}
 	
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
-		uniqueId++;
-		meetings.add(new FutureMeetingImpl(uniqueId, date, contacts));
-		return uniqueId;
+		cm_uniqueId++;
+		cm_meetings.add(new FutureMeetingImpl(cm_uniqueId, date, contacts));
+		return cm_uniqueId;
 	}
 	
 	public PastMeeting getPastMeeting(int id) {
@@ -29,7 +29,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public Meeting getMeeting(int id) {
-		Meeting current = meetings.get(0);
+		Meeting current = cm_meetings.get(0);
 		
 		if(id == current.getId()) {
 			return current;
@@ -41,12 +41,12 @@ public class ContactManagerImpl implements ContactManager {
 	public List<Meeting> getFutureMeetingList(Contact contact) {
 		List<Meeting> result = new LinkedList<Meeting>();
 		
-		for(Iterator<Meeting> i = meetings.iterator(); i.hasNext(); ) {
-			Meeting currentMeeting = i.next();
+		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
+			Meeting currentMeeting = meetingsIt.next();
 			Set<Contact> contacts = currentMeeting.getContacts();
 			
-			for(Iterator<Contact> it = contacts.iterator(); it.hasNext(); ) {
-				Contact currentContact = it.next();
+			for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {
+				Contact currentContact = contactsIt.next();
 				if(currentContact.getId() == contact.getId()) {
 					result.add(currentMeeting);
 					break;
