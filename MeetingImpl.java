@@ -29,4 +29,11 @@ public abstract class MeetingImpl implements Meeting {
 	public Set<Contact> getContacts() {
 		return m_contacts;
 	}
+	
+	public boolean equals(Meeting meeting) {
+		return (m_id == meeting.getId() &&
+				m_date.equals(meeting.getDate()) &&
+				m_contacts.equals(meeting.getContacts())
+				);
+	}
 }
