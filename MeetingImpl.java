@@ -1,6 +1,5 @@
 import java.util.Calendar;
 import java.util.Set;
-import java.util.Collections;
 
 public abstract class MeetingImpl implements Meeting, Comparable<Meeting>{
 	
@@ -40,13 +39,6 @@ public abstract class MeetingImpl implements Meeting, Comparable<Meeting>{
 	
 	@Override
 	public int compareTo(Meeting m) {
-		Calendar comparedDate = m.getDate();
-		if (m_date.after(comparedDate)) {
-			return 1;
-		} else if (m_date.before(comparedDate)) {
-			return -1;
-		} else {
-			return 0;
-		}
+		return m_date.compareTo(m.getDate());
 	}
 }
