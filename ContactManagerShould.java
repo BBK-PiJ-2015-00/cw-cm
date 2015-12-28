@@ -132,7 +132,15 @@ public class ContactManagerShould {
 		assertEquals(0, finalList.size());
 	}
 	
-	
+	@Test
+	public void willSortMeetingsChronolically() {
+		List<Meeting> list = addMeetings();
+		
+		list.sort();
+		assertEquals(3, list.get(0).getId());
+		assertEquals(2, list.get(1).getId());
+		assertEquals(1, list.get(2).getId());		
+	}
 	
 	//@Test
 	public void getFutureMeetingListWillBeChronologicallySorted() {
