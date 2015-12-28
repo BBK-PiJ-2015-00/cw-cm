@@ -1,6 +1,6 @@
 import java.util.Calendar;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.Iterator;
 
@@ -10,7 +10,7 @@ public class ContactManagerImpl implements ContactManager {
 	private int uniqueId;
 	
 	public ContactManagerImpl() {
-		meetings = new ArrayList<Meeting>();
+		meetings = new LinkedList<Meeting>();
 		uniqueId = 0;
 	}
 	
@@ -39,10 +39,10 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public List<Meeting> getFutureMeetingList(Contact contact) {
-		List<Meeting> result = new ArrayList<Meeting>();
+		List<Meeting> result = new LinkedList<Meeting>();
 		
-		for(int i = 0; i < meetings.size(); i++) {
-			Meeting currentMeeting = meetings.get(i);
+		for(Iterator<Meeting> i = meetings.iterator(); i.hasNext(); ) {
+			Meeting currentMeeting = i.next();
 			Set<Contact> contacts = currentMeeting.getContacts();
 			
 			for(Iterator<Contact> it = contacts.iterator(); it.hasNext(); ) {
