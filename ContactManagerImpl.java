@@ -46,8 +46,8 @@ public class ContactManagerImpl implements ContactManager {
 			Set<Contact> contacts = currentMeeting.getContacts();
 			
 			for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {
-				Contact currentContact = contactsIt.next();
-				if(currentContact.getId() == contact.getId()) {
+				ContactImpl currentContact = (ContactImpl) contactsIt.next();
+				if (currentContact.equals(contact)) {
 					result.add(currentMeeting);
 					break;
 				}

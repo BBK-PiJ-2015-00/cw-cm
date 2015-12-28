@@ -34,4 +34,11 @@ public class ContactImpl implements Contact {
 	public void addNotes(String note) {
 		c_notes += note;
 	}
+	
+	public boolean equals(Contact contact) {
+		return (c_id == contact.getId() &&
+				c_name.equals (contact.getName()) &&
+				c_notes.equals (contact.getNotes())
+				);
+	}
 }
