@@ -3,6 +3,8 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -128,6 +130,18 @@ public class ContactManagerShould {
 		
 		assertEquals(3, initialList.size());
 		assertEquals(0, finalList.size());
+	}
+	
+	
+	
+	//@Test
+	public void getFutureMeetingListWillBeChronologicallySorted() {
+		addMeetings();
+		List<Meeting> originalList = contactManager.getFutureMeetingList(new ContactImpl(1, "John"));
+		List<Meeting> sortedList = originalList;
+		
+		
+		assertTrue(originalList.equals(sortedList));
 	}
 }
 
