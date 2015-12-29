@@ -231,6 +231,18 @@ public class ContactManagerShould {
 		
 		assertTrue(sortedList.equals(originalList));
 	}
+	
+	@Test
+	public void getTheMeetingListOnGivenDateIsEmpty() {
+		addMeetingsOnDate();
+		
+		Calendar futureDate4 = Calendar.getInstance();
+		futureDate4.clear();
+		futureDate4.set(9000, 11, 10);
+		List<Meeting> list = contactManager.getMeetingListOn(futureDate4);
+		
+		assertTrue(list.isEmpty());
+	}
 }
 
 
