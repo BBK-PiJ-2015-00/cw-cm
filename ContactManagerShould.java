@@ -265,8 +265,8 @@ public class ContactManagerShould {
 		List<PastMeeting> smallList = contactManager.getPastMeetingListFor(new ContactImpl(2, "Janet"));
 		
 		assertTrue(smallList.size() != fullList.size());
-		assertEquals(1, smallList.get(0).getId());
-		assertEquals(3, smallList.get(1).getId());
+		assertEquals(3, smallList.get(0).getId());
+		assertEquals(1, smallList.get(1).getId());
 	}
 	
 	private List<Meeting> addPastMeetings() {
