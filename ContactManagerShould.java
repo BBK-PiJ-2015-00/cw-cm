@@ -243,6 +243,21 @@ public class ContactManagerShould {
 		
 		assertTrue(list.isEmpty());
 	}
+	
+	@Test
+	public void addTheNewPastMeeting() {
+		Calendar pastDate = Calendar.getInstance();
+		pastDate.clear();
+		pastDate.set(2000, 11, 10);
+		pastDate.set(Calendar.HOUR_OF_DAY, 15);
+		
+		Set<Contact> contacts = new HashSet<>();
+		contacts.add(new ContactImpl(1, "John"));
+		
+		String notes = "Hello";
+		
+		contactManager.addNewPastMeeting(contacts, pastDate, notes);
+	}
 }
 
 
