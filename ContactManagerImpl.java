@@ -84,11 +84,31 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public List<PastMeeting> getPastMeetingListFor(Contact contact) {
-		return null;
+		List<PastMeeting> result = new LinkedList<PastMeeting>();
+		
+		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
+			
+			Meeting currentMeeting = meetingsIt.next();
+			if(currentMeeting.getClass() != PastMeetingImpl.class) {
+				continue;
+			}	
+			Set<Contact> contacts = currentMeeting.getContacts();
+			
+			for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {
+				ContactImpl currentContact = (ContactImpl) contactsIt.next();
+				if (currentContact.equals(contact)) {
+					result.add((PastMeeting) currentMeeting);
+					break;
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
-		
+		cm_uniqueId++;
+		cm_meetings.add(new PastMeetingImpl(cm_uniqueId, date, contacts, text));
 	}
 	
 	public PastMeeting addMeetingNotes(int id, String text) {
