@@ -108,17 +108,23 @@ public class ContactManagerShould {
 		Calendar futureDate = Calendar.getInstance();
 		int id;
 		
-		futureDate.set(3000, 12, 10);
-		id = contactManager.addFutureMeeting(contacts, futureDate);
-		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		Calendar futureDate1 = Calendar.getInstance();		
+		futureDate1.clear();
+		futureDate1.set(2500, 11, 10);
+		id = contactManager.addFutureMeeting(contacts, futureDate1);
+		list.add(new FutureMeetingImpl(id, futureDate1, contacts));
 		
-		futureDate.set(3000, 10, 5);
-		id = contactManager.addFutureMeeting(contacts2, futureDate);
-		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		Calendar futureDate2 = Calendar.getInstance();	
+		futureDate2.clear();
+		futureDate2.set(2900, 10, 5);
+		id = contactManager.addFutureMeeting(contacts2, futureDate2);
+		list.add(new FutureMeetingImpl(id, futureDate2, contacts));
 		
-		futureDate.set(3000, 1, 1);
-		id = contactManager.addFutureMeeting(contacts, futureDate);	
-		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		Calendar futureDate3 = Calendar.getInstance();	
+		futureDate3.clear();
+		futureDate3.set(2800, 1, 1);
+		id = contactManager.addFutureMeeting(contacts, futureDate3);
+		list.add(new FutureMeetingImpl(id, futureDate3, contacts));
 		
 		return list;
 	}
