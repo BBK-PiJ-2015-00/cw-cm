@@ -258,6 +258,65 @@ public class ContactManagerShould {
 		
 		contactManager.addNewPastMeeting(contacts, pastDate, notes);
 	}
+	
+	@Test
+	public void getThePastMeetingListForJanet() {
+		List<Meeting> fullList = addPastMeetings();
+		List<PastMeeting> smallList = contactManager.getPastMeetingListFor(new ContactImpl(2, "Janet"));
+		
+		assertTrue(smallList.size() != fullList.size());
+		assertEquals(1, smallList.get(0).getId());
+		assertEquals(3, smallList.get(1).getId());
+	}
+	
+	private List<Meeting> addPastMeetings() {
+		Calendar pastDate1 = Calendar.getInstance();
+		pastDate1.clear();
+		pastDate1.set(2000, 11, 10);
+		pastDate1.set(Calendar.HOUR_OF_DAY, 15);
+		
+		Calendar pastDate2 = Calendar.getInstance();
+		pastDate2.clear();
+		pastDate2.set(2000, 5, 10);
+		pastDate2.set(Calendar.HOUR_OF_DAY, 4);
+		
+		Calendar pastDate3 = Calendar.getInstance();
+		pastDate3.clear();
+		pastDate3.set(1990, 3, 10);
+		pastDate3.set(Calendar.HOUR_OF_DAY, 15);
+		
+		Calendar pastDate4 = Calendar.getInstance();
+		pastDate3.clear();
+		pastDate3.set(1990, 3, 10);
+		pastDate3.set(Calendar.HOUR_OF_DAY, 12);
+		
+		Contact john = new ContactImpl(1, "John");
+		Contact janet = new ContactImpl(2, "Janet");
+		Contact andrew = new ContactImpl(3, "Andrew");
+		
+		Set<Contact> contacts1 = new HashSet<>();
+		contacts1.add(john);
+		contacts1.add(janet);
+		contacts1.add(andrew);
+		
+		Set<Contact> contacts2 = new HashSet<>();
+		contacts2.add(john);
+		contacts2.add(andrew);
+		
+		List<Meeting> result = new LinkedList<Meeting>();
+		
+		contactManager.addNewPastMeeting(contacts1, pastDate1, "");		
+		contactManager.addNewPastMeeting(contacts2, pastDate2, "");
+		contactManager.addNewPastMeeting(contacts1, pastDate3, "What?");
+		contactManager.addNewPastMeeting(contacts2, pastDate4, "Hello");
+		
+		result.add(new PastMeetingImpl(1, pastDate1, contacts1, ""));
+		result.add(new PastMeetingImpl(2, pastDate2, contacts2, ""));
+		result.add(new PastMeetingImpl(3, pastDate3, contacts1, "What?"));
+		result.add(new PastMeetingImpl(4, pastDate4, contacts2, "Hello"));
+		
+		return result;
+	}
 }
 
 
