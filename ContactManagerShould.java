@@ -179,8 +179,8 @@ public class ContactManagerShould {
 		List<Meeting> smallList = contactManager.getMeetingListOn(futureDate1);
 		
 		assertEquals(2, smallList.size());
-		assertEquals(1, smallList.get(0).getId());
-		assertEquals(3, smallList.get(1).getId());
+		assertEquals(3, smallList.get(0).getId());
+		assertEquals(1, smallList.get(1).getId());
 	}
 	
 	private List<Meeting> addMeetingsOnDate() {
@@ -191,10 +191,17 @@ public class ContactManagerShould {
 		Calendar futureDate1 = Calendar.getInstance();
 		futureDate1.clear();
 		futureDate1.set(2500, 11, 10);
+		futureDate1.set(Calendar.HOUR_OF_DAY, 15);
 		
 		Calendar futureDate2 = Calendar.getInstance();	
 		futureDate2.clear();
-		futureDate2.set(2900, 10, 5);		
+		futureDate2.set(2900, 10, 5);
+		futureDate2.set(Calendar.HOUR_OF_DAY, 12);
+		
+		Calendar futureDate3 = Calendar.getInstance();
+		futureDate3.clear();
+		futureDate3.set(2500, 11, 10);
+		futureDate3.set(Calendar.HOUR_OF_DAY, 12);
 		
 		int id;
 		id = contactManager.addFutureMeeting(contacts, futureDate1);
@@ -203,8 +210,8 @@ public class ContactManagerShould {
 		id = contactManager.addFutureMeeting(contacts, futureDate2);
 		list.add(new FutureMeetingImpl(id, futureDate2, contacts));
 		
-		id = contactManager.addFutureMeeting(contacts, futureDate1);
-		list.add(new FutureMeetingImpl(id, futureDate1, contacts));
+		id = contactManager.addFutureMeeting(contacts, futureDate3);
+		list.add(new FutureMeetingImpl(id, futureDate3, contacts));
 		
 		return list;
 	}
