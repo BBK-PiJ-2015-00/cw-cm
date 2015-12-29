@@ -2,8 +2,8 @@ import java.util.Calendar;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Collections;
 import java.util.Arrays;
 
 import static org.junit.Assert.*;
@@ -98,7 +98,7 @@ public class ContactManagerShould {
 	}
 	
 	private List<Meeting> addMeetings() {
-		List<Meeting> list = new ArrayList<Meeting>();
+		List<Meeting> list = new LinkedList<Meeting>();
 		Set<Contact> contacts = new HashSet<>();
 		contacts.add(new ContactImpl(1, "John"));
 		
@@ -132,15 +132,6 @@ public class ContactManagerShould {
 		assertEquals(0, finalList.size());
 	}
 	
-	@Test
-	public void willSortMeetingsChronolically() {
-		List<Meeting> list = addMeetings();
-		
-		list.sort();
-		assertEquals(3, list.get(0).getId());
-		assertEquals(2, list.get(1).getId());
-		assertEquals(1, list.get(2).getId());		
-	}
 	
 	//@Test
 	public void getFutureMeetingListWillBeChronologicallySorted() {
