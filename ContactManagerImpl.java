@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.Iterator;
+import java.util.Collections;
 
 public class ContactManagerImpl implements ContactManager {
 	
@@ -54,6 +55,7 @@ public class ContactManagerImpl implements ContactManager {
 			}
 		}
 		
+		Collections.sort(result, (m1, m2) -> m1.getDate().compareTo (m2.getDate()));
 		return result;
 	}
 	
