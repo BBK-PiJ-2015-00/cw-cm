@@ -201,26 +201,27 @@ public class MeetingShould {
 		Set<Contact> contacts = new HashSet<>();
 		contacts.add(new ContactImpl(1, "John"));
 		
-		Calendar futureDate = Calendar.getInstance();
+		Calendar futureDate1 = Calendar.getInstance();		
+		futureDate1.clear();
+		futureDate1.set(2500, 11, 10);
+		list.add(new FutureMeetingImpl(1, futureDate1, contacts));
 		
-		futureDate.clear();
-		futureDate.set(3000, 11, 10);
-		list.add(new FutureMeetingImpl(1, futureDate, contacts));
+		Calendar futureDate2 = Calendar.getInstance();	
+		futureDate2.clear();
+		futureDate2.set(2900, 10, 5);
+		list.add(new FutureMeetingImpl(2, futureDate2, contacts));
 		
-		futureDate.clear();
-		futureDate.set(2900, 10, 5);
-		list.add(new FutureMeetingImpl(2, futureDate, contacts));
-		
-		futureDate.clear();
-		futureDate.set(2800, 1, 1);
-		list.add(new FutureMeetingImpl(3, futureDate, contacts));
+		Calendar futureDate3 = Calendar.getInstance();	
+		futureDate3.clear();
+		futureDate3.set(2800, 1, 1);
+		list.add(new FutureMeetingImpl(3, futureDate3, contacts));
 		
 		
 		Collections.sort(list);
 		
-		assertEquals(3, list.get(0).getId());
-		assertEquals(2, list.get(1).getId());
-		assertEquals(1, list.get(2).getId());		
+		assertEquals(1, list.get(0).getId());
+		assertEquals(3, list.get(1).getId());
+		assertEquals(2, list.get(2).getId());		
 	}
 }
 

@@ -9,7 +9,7 @@ public abstract class MeetingImpl implements Meeting, Comparable<Meeting>{
 	
 	public MeetingImpl(int id, Calendar date, Set<Contact> contacts) {
 		//Will also throw NullPointerException if date or contacts is Null.
-		if(id <= 0 || !date.isSet(0) || !date.isSet(1) || !date.isSet(2) || contacts.size() == 0) {
+		if(id <= 0 || !date.isSet(Calendar.YEAR) || !date.isSet(Calendar.MONTH) || !date.isSet(Calendar.DAY_OF_MONTH) || contacts.size() == 0) {
 			throw new IllegalArgumentException();
 		}
 		
@@ -37,7 +37,6 @@ public abstract class MeetingImpl implements Meeting, Comparable<Meeting>{
 				);
 	}
 	
-	@Override
 	public int compareTo(Meeting m) {
 		return m_date.compareTo(m.getDate());
 	}
