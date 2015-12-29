@@ -103,6 +103,7 @@ public class ContactManagerImpl implements ContactManager {
 			}
 		}
 		
+		Collections.sort(result, (m1, m2) -> m1.getDate().compareTo (m2.getDate()));
 		return result;
 	}
 	
