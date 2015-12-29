@@ -191,6 +191,40 @@ public class MeetingShould {
 		assertTrue(isIllegal);
 		assertNull(dud);
 	}
+	
+	
+	
+	@Test
+	public void willSortMeetingsChronolically() {
+		List<MeetingImpl> list = new LinkedList<MeetingImpl>();
+		Set<Contact> contacts = new HashSet<>();
+		contacts.add(new ContactImpl(1, "John"));
+		
+		Calendar futureDate = Calendar.getInstance();
+		int id;
+		
+		futureDate.clear();
+		futureDate.set(3000, 11, 10);
+		id = contactManager.addFutureMeeting(contacts, futureDate);
+		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		
+		futureDate.clear();
+		futureDate.set(2900, 10, 5);
+		id = contactManager.addFutureMeeting(contacts, futureDate);
+		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		
+		futureDate.clear();
+		futureDate.set(2800, 1, 1);
+		id = contactManager.addFutureMeeting(contacts, futureDate);	
+		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		
+		
+		Collections.sort(list);
+		
+		assertEquals(3, list.get(0).getId());
+		assertEquals(2, list.get(1).getId());
+		assertEquals(1, list.get(2).getId());		
+	}
 }
 
 
