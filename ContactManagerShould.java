@@ -150,6 +150,26 @@ public class ContactManagerShould {
 		
 		assertTrue(originalList.equals(sortedList));
 	}
+	
+	@Test
+	public void getFutureMeetingListWillHaveNoDuplicates() {
+		List<Meeting> list = addMeetings();
+		List<Meeting> sortedList = contactManager.getFutureMeetingList(new ContactImpl(1, "John"));
+		
+		//add duplicate
+		Set<Contact> contacts = new HashSet<>();
+		contacts.add(new ContactImpl(1, "John"));
+		Calendar futureDate1 = Calendar.getInstance();		
+		futureDate1.clear();
+		futureDate1.set(2500, 11, 10);
+		int id = contactManager.addFutureMeeting(contacts, futureDate1);
+		list.add(new FutureMeetingImpl(id, futureDate1, contacts));
+		
+		assertEquals(4, list.size());
+		assertEquals(2, sortedList.size());
+	}
+	
+	
 }
 
 
