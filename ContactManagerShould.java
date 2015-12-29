@@ -317,6 +317,14 @@ public class ContactManagerShould {
 		
 		return result;
 	}
+	
+	@Test
+	public void getThePastMeetingListForArnoldIsEmpty() {
+		addPastMeetings();
+		List<PastMeeting> smallList = contactManager.getPastMeetingListFor(new ContactImpl(4, "Arnold"));
+		
+		assertTrue(smallList.isEmpty());
+	}
 }
 
 
