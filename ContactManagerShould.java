@@ -325,6 +325,19 @@ public class ContactManagerShould {
 		
 		assertTrue(smallList.isEmpty());
 	}
+	
+	@Test
+	public void getThePastMeetingListForJohnIsSorted() {
+		addPastMeetings();
+		List<PastMeeting> originalList = contactManager.getPastMeetingListFor(new ContactImpl(1, "John"));
+		
+		List<PastMeeting> sortedList = new LinkedList<PastMeeting>();
+		sortedList.addAll(originalList);
+		
+		Collections.sort(sortedList, (m1, m2) -> m1.getDate().compareTo (m2.getDate()));
+		
+		assertTrue(sortedList.equals(originalList));		
+	}
 }
 
 
