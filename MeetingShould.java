@@ -1,6 +1,9 @@
 import java.util.Calendar;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Collections;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -192,8 +195,6 @@ public class MeetingShould {
 		assertNull(dud);
 	}
 	
-	
-	
 	@Test
 	public void willSortMeetingsChronolically() {
 		List<MeetingImpl> list = new LinkedList<MeetingImpl>();
@@ -201,22 +202,18 @@ public class MeetingShould {
 		contacts.add(new ContactImpl(1, "John"));
 		
 		Calendar futureDate = Calendar.getInstance();
-		int id;
 		
 		futureDate.clear();
 		futureDate.set(3000, 11, 10);
-		id = contactManager.addFutureMeeting(contacts, futureDate);
-		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		list.add(new FutureMeetingImpl(1, futureDate, contacts));
 		
 		futureDate.clear();
 		futureDate.set(2900, 10, 5);
-		id = contactManager.addFutureMeeting(contacts, futureDate);
-		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		list.add(new FutureMeetingImpl(2, futureDate, contacts));
 		
 		futureDate.clear();
 		futureDate.set(2800, 1, 1);
-		id = contactManager.addFutureMeeting(contacts, futureDate);	
-		list.add(new FutureMeetingImpl(id, futureDate, contacts));
+		list.add(new FutureMeetingImpl(3, futureDate, contacts));
 		
 		
 		Collections.sort(list);
