@@ -122,7 +122,7 @@ public class ContactManagerShould {
 		
 		Calendar futureDate3 = Calendar.getInstance();	
 		futureDate3.clear();
-		futureDate3.set(2800, 1, 1);
+		futureDate3.set(2300, 1, 1);
 		id = contactManager.addFutureMeeting(contacts, futureDate3);
 		list.add(new FutureMeetingImpl(id, futureDate3, contacts));
 		
@@ -139,12 +139,14 @@ public class ContactManagerShould {
 	}
 	
 	
-	//@Test
+	@Test
 	public void getFutureMeetingListWillBeChronologicallySorted() {
 		addMeetings();
 		List<Meeting> originalList = contactManager.getFutureMeetingList(new ContactImpl(1, "John"));
-		List<Meeting> sortedList = originalList;
-		
+		List<Meeting> sortedList = new LinkedList<Meeting>();
+		sortedList.addAll(originalList);
+
+		Collections.sort(sortedList, (m1, m2) -> m1.getDate().compareTo(m2.getDate()));
 		
 		assertTrue(originalList.equals(sortedList));
 	}
