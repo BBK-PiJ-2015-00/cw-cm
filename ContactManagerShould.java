@@ -208,6 +208,22 @@ public class ContactManagerShould {
 		
 		return list;
 	}
+	
+	@Test
+	public void getTheMeetingListOnGivenDateIsSorted() {
+		addMeetingsOnDate();
+		
+		Calendar futureDate1 = Calendar.getInstance();
+		futureDate1.clear();
+		futureDate1.set(2500, 11, 10);
+		List<Meeting> originalList = contactManager.getMeetingListOn(futureDate1);
+		
+		List<Meeting> sortedList = new LinkedList<Meeting>();
+		sortedList.addAll(originalList);
+		Collections.sort(sortedList, (m1, m2) -> m1.getDate().compareTo (m2.getDate()));		
+		
+		assertTrue(sortedList.equals(originalList));
+	}
 }
 
 
