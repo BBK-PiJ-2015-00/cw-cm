@@ -60,7 +60,18 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public List<Meeting> getMeetingListOn(Calendar date) {
-		return null;
+		List<Meeting> result = new LinkedList<Meeting>();
+		
+		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
+			Meeting currentMeeting = meetingsIt.next();
+			Calendar currentDate = currentMeeting.getDate();
+			
+			if(currentDate.equals(date)) {
+				result.add(currentMeeting);
+			}
+		}
+		
+		return result;
 	}
 	
 	public List<PastMeeting> getPastMeetingListFor(Contact contact) {
