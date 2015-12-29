@@ -217,7 +217,7 @@ public class MeetingShould {
 		list.add(new FutureMeetingImpl(3, futureDate3, contacts));
 		
 		
-		Collections.sort(list);
+		Collections.sort(list, (m1, m2) -> m1.getDate().compareTo(m2.getDate()));
 		
 		assertEquals(1, list.get(0).getId());
 		assertEquals(3, list.get(1).getId());
