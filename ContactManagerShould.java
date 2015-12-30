@@ -372,8 +372,39 @@ public class ContactManagerShould {
 		PastMeetingImpl actual = (PastMeetingImpl) contactManager.addMeetingNotes(1, "hello world");
 		PastMeetingImpl after = (PastMeetingImpl) contactManager.getPastMeeting(1);
 		
-		assertFalse(before.equals(after));
-		assertTrue(after.equals(actual));
+		assertFalse("before, after", before.equals(after));
+		assertTrue("after, actual", after.equals(actual));
+	}
+	
+	@Test
+	public void addMeetingNotesConvertsFutureMeetingToPastMeeting() {
+		Set<Contact> contacts = new HashSet<>(); 
+		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
+		Calendar date = Calendar.getInstance();
+		date.clear();
+		date.set(2000, 10, 10);
+		
+		contactManager.addFutureMeeting(contacts, date);
+		assertTrue("is future meeting", contactManager.getMeeting(1).getClass() == FutureMeetingImpl.class);
+		
+		PastMeetingImpl actual = (PastMeetingImpl) contactManager.addMeetingNotes(1, "what?");
+		assertTrue("now past meeting", contactManager.getMeeting(1).getClass() == PastMeetingImpl.class);
+		
+		PastMeetingImpl expected = (PastMeetingImpl) contactManager.getPastMeeting(1);
+		assertTrue("is the same", expected.equals(actual));
+	}
+	
+	@Test
+	public void addMeetingNotesThrowsIllegalArgumentExceptionIfMeetingDoesNotExist() {
+		addPastMeetings();
+		
+		boolean hasError = false;
+		try {
+			contactManager.addMeetingNotes(100, "Hello");
+		} catch (IllegalArgumentException ex) {
+			hasError = true;
+		}
+		assertTrue(hasError);
 	}
 }
 
