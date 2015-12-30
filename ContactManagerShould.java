@@ -346,6 +346,14 @@ public class ContactManagerShould {
 		assertNotNull(example);
 		assertTrue(example.getClass() == PastMeetingImpl.class);
 	}
+	
+	@Test
+	public void addMeetingNotesReturnsAPastMeetingWithNotesAdded() {
+		addPastMeetings();
+		PastMeeting example = contactManager.addMeetingNotes(1, "hello world");
+		
+		assertEquals("hello world", example.getNotes());
+	}
 }
 
 
