@@ -341,6 +341,7 @@ public class ContactManagerShould {
 	
 	@Test
 	public void addMeetingNotesReturnsAPastMeeting() {
+		addPastMeetings();
 		PastMeeting example = contactManager.addMeetingNotes(1, "example note");
 		
 		assertNotNull(example);
