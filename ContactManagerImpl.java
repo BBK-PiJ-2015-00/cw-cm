@@ -125,7 +125,11 @@ public class ContactManagerImpl implements ContactManager {
 			throw new IllegalArgumentException();
 		}
 		
+		Calendar dateNow = Calendar.getInstance();
 		Calendar date = temp.getDate();
+		if(dateNow.before(date)) {
+			throw new IllegalStateException();
+		}		
 		Set<Contact> contacts = temp.getContacts();
 		String notes = "";
 		if(temp.getClass() == PastMeetingImpl.class) {
