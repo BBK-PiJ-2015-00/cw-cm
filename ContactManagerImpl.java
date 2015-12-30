@@ -16,6 +16,11 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
+		Calendar dateNow = Calendar.getInstance();
+		if(date.before(dateNow)) {
+			throw new IllegalArgumentException();
+		}
+		
 		cm_uniqueId++;
 		cm_meetings.add(new FutureMeetingImpl(cm_uniqueId, date, contacts));
 		return cm_uniqueId;
