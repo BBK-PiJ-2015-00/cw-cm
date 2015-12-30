@@ -18,7 +18,7 @@ public class ContactManagerImpl implements ContactManager {
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
 		
 		Calendar dateNow = Calendar.getInstance();
-		if(date.before(dateNow) || contacts.contains(null)) {
+		if(date.before(dateNow) || contacts == null || contacts.contains(null)) {
 			throw new IllegalArgumentException();
 		}
 		
