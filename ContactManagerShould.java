@@ -419,6 +419,19 @@ public class ContactManagerShould {
 		}
 		assertTrue(hasError);
 	}
+	
+	@Test
+	public void addMeetingNotesThrowsIllegalStateExceptionIfDateIsNotPast() {
+		addMeetings();
+		
+		boolean hasError = false;
+		try {
+			contactManager.addMeetingNotes(1, null);
+		} catch (IllegalStateException ex) {
+			hasError = true;
+		}
+		assertTrue(hasError);
+	}
 }
 
 
