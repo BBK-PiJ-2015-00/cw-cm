@@ -358,9 +358,10 @@ public class ContactManagerShould {
 	@Test
 	public void getThePastMeeting() {
 		List<Meeting> list = addPastMeetings();
-		PastMeeting expected = (PastMeeting) list.get(0);
+		PastMeetingImpl expected = (PastMeetingImpl) list.get(1);
+		PastMeetingImpl actual = (PastMeetingImpl) contactManager.getPastMeeting(2);
 		
-		assertTrue(expected.equals(contactManager.getPastMeeting(2)));
+		assertTrue(expected.equals(actual));
 	}
 }
 
