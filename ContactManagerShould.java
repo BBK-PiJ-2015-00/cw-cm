@@ -363,6 +363,17 @@ public class ContactManagerShould {
 		
 		assertTrue(expected.equals(actual));
 	}
+	
+	@Test
+	public void addMeetingNotesAddsNotesToAnExistingPastMeeting() {
+		List<Meeting> list = addPastMeetings();
+		PastMeetingImpl before = (PastMeetingImpl) list.get(0);
+		PastMeetingImpl actual = (PastMeetingImpl) contactManager.addMeetingNotes(1, "hello world");
+		PastMeetingImpl after = (PastMeetingImpl) contactManager.getPastMeeting(1);
+		
+		assertFalse(before.equals(after));
+		assertTrue(after.equals(actual));
+	}
 }
 
 
