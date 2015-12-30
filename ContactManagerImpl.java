@@ -2,6 +2,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Collections;
 
@@ -43,6 +44,7 @@ public class ContactManagerImpl implements ContactManager {
 		List<Meeting> result = new LinkedList<Meeting>();
 		
 		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
+			
 			Meeting currentMeeting = meetingsIt.next();
 			Set<Contact> contacts = currentMeeting.getContacts();
 			
@@ -113,7 +115,13 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public PastMeeting addMeetingNotes(int id, String text) {
-		return null;
+		Calendar date = Calendar.getInstance();
+		
+		Set<Contact> contacts = new HashSet<>();
+		contacts.add(new ContactImpl(10, "RandomName"));
+		
+		PastMeeting result = new PastMeetingImpl(10, date, contacts, text);
+		return result;
 	}
 	
 	public int addNewContact(String name, String notes) {
