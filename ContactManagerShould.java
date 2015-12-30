@@ -406,6 +406,19 @@ public class ContactManagerShould {
 		}
 		assertTrue(hasError);
 	}
+	
+	@Test
+	public void addMeetingNotesThrowsNullPointerExceptionIfNoteIsNull() {
+		addPastMeetings();
+		
+		boolean hasError = false;
+		try {
+			contactManager.addMeetingNotes(1, null);
+		} catch (NullPointerException ex) {
+			hasError = true;
+		}
+		assertTrue(hasError);
+	}
 }
 
 
