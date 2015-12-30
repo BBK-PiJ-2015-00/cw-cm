@@ -485,6 +485,23 @@ public class ContactManagerShould {
 		
 		assertTrue(hasError);
 	}
+	
+	@Test
+	public void addFutureMeetingThrowsIllegalArgumentExceptionIfContactsNull() {
+		Set<Contact> contacts = null;
+		Calendar date = Calendar.getInstance();
+		date.clear();
+		date.set(3000, 10, 10);		
+		
+		boolean hasError = false;
+		try {
+			contactManager.addFutureMeeting(contacts, date);
+		} catch (IllegalArgumentException ex){
+			hasError = true;
+		}
+		
+		assertTrue(hasError);
+	}
 }
 
 
