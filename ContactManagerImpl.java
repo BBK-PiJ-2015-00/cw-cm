@@ -124,6 +124,18 @@ public class ContactManagerImpl implements ContactManager {
 		
 		PastMeeting result = new PastMeetingImpl(id, date, contacts, notes);
 		
+		//find meeting index
+		int index = -1;
+		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
+			index++;
+			Meeting current = meetingsIt.next();
+			
+			if(id == current.getId()) {
+				break;
+			}
+		}
+		cm_meetings.set(index, result);
+		
 		return result;
 	}
 	
