@@ -23,7 +23,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public PastMeeting getPastMeeting(int id) {
-		return null;
+		return (PastMeeting) getMeeting(id);
 	}
 	
 	public FutureMeeting getFutureMeeting(int id) {
@@ -31,12 +31,14 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public Meeting getMeeting(int id) {
-		Meeting current = cm_meetings.get(0);
-		
-		if(id == current.getId()) {
-			return current;
-		}
-		
+		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
+			
+			Meeting current = meetingsIt.next();
+			
+			if(id == current.getId()) {
+				return current;
+			}
+		}	
 		return null;
 	}
 	
