@@ -117,10 +117,15 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public PastMeeting addMeetingNotes(int id, String text) {		
-		PastMeeting temp = this.getPastMeeting(id);
+		Meeting temp = getMeeting(id);
 		Calendar date = temp.getDate();
 		Set<Contact> contacts = temp.getContacts();
-		String notes = temp.getNotes() + text;
+		String notes = "";
+		if(temp.getClass() == PastMeetingImpl.class) {
+			PastMeeting pTemp = (PastMeeting) temp;
+			notes += pTemp.getNotes();
+		}
+		notes += text;
 		
 		PastMeeting result = new PastMeetingImpl(id, date, contacts, notes);
 		
