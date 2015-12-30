@@ -426,7 +426,7 @@ public class ContactManagerShould {
 		
 		boolean hasError = false;
 		try {
-			contactManager.addMeetingNotes(1, null);
+			contactManager.addMeetingNotes(1, "hello");
 		} catch (IllegalStateException ex) {
 			hasError = true;
 		}
