@@ -115,11 +115,16 @@ public class ContactManagerImpl implements ContactManager {
 		cm_meetings.add(new PastMeetingImpl(cm_uniqueId, date, contacts, text));
 	}
 	
-	public PastMeeting addMeetingNotes(int id, String text) {		
+	public PastMeeting addMeetingNotes(int id, String text) {
+		
+		if(text.equals(null)) {
+			throw new NullPointerException();
+		}	
 		Meeting temp = getMeeting(id);
 		if(temp == null) {
 			throw new IllegalArgumentException();
 		}
+		
 		Calendar date = temp.getDate();
 		Set<Contact> contacts = temp.getContacts();
 		String notes = "";
