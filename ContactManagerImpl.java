@@ -117,6 +117,9 @@ public class ContactManagerImpl implements ContactManager {
 	
 	public PastMeeting addMeetingNotes(int id, String text) {		
 		Meeting temp = getMeeting(id);
+		if(temp == null) {
+			throw new IllegalArgumentException();
+		}
 		Calendar date = temp.getDate();
 		Set<Contact> contacts = temp.getContacts();
 		String notes = "";
