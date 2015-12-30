@@ -479,7 +479,7 @@ public class ContactManagerShould {
 		boolean hasError = false;
 		try {
 			contactManager.addFutureMeeting(contacts, date);
-		} catch (NullPointerException ex){
+		} catch (IllegalArgumentException ex){
 			hasError = true;
 		}
 		
