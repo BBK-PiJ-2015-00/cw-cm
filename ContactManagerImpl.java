@@ -118,9 +118,9 @@ public class ContactManagerImpl implements ContactManager {
 		Calendar date = Calendar.getInstance();
 		
 		Set<Contact> contacts = new HashSet<>();
-		contacts.add(new ContactImpl(10, "RandomName"));
+		contacts.add(new ContactImpl(id, "RandomName"));
 		
-		PastMeeting result = new PastMeetingImpl(10, date, contacts, text);
+		PastMeeting result = new PastMeetingImpl(id, date, contacts, text);
 		return result;
 	}
 	
