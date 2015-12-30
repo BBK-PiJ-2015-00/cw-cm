@@ -432,6 +432,24 @@ public class ContactManagerShould {
 		}
 		assertTrue(hasError);
 	}
+	
+	@Test
+	public void addFutureMeetingThrowsIllegalArgumentExceptionIfDateIsInPast() {
+		Set<Contact> contacts = new HashSet<>(); 
+		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
+		Calendar date = Calendar.getInstance();
+		date.clear();
+		date.set(2000, 10, 10);
+		
+		boolean hasError = false;
+		try {
+			contactManager.addFutureMeeting(contacts, date);
+		} catch (IllegalArgumentException ex){
+			hasError = true;
+		}
+		
+		assertTrue(hasError);
+	}
 }
 
 
