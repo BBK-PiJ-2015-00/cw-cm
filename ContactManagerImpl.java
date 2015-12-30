@@ -116,13 +116,14 @@ public class ContactManagerImpl implements ContactManager {
 		cm_meetings.add(new PastMeetingImpl(cm_uniqueId, date, contacts, text));
 	}
 	
-	public PastMeeting addMeetingNotes(int id, String text) {
-		Calendar date = Calendar.getInstance();
+	public PastMeeting addMeetingNotes(int id, String text) {		
+		PastMeeting temp = this.getPastMeeting(id);
+		Calendar date = temp.getDate();
+		Set<Contact> contacts = temp.getContacts();
+		String notes = temp.getNotes() + text;
 		
-		Set<Contact> contacts = new HashSet<>();
-		contacts.add(new ContactImpl(id, "RandomName"));
+		PastMeeting result = new PastMeetingImpl(id, date, contacts, notes);
 		
-		PastMeeting result = new PastMeetingImpl(id, date, contacts, text);
 		return result;
 	}
 	
