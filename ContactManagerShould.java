@@ -338,6 +338,14 @@ public class ContactManagerShould {
 		
 		assertTrue(sortedList.equals(originalList));		
 	}
+	
+	@Test
+	public void addMeetingNotesReturnsAPastMeeting() {
+		PastMeeting example = contactManager.addMeetingNotes(1, "example note");
+		
+		assertNotNull(example);
+		assertTrue(example.getClass() == PastMeetingImpl.class);
+	}
 }
 
 
