@@ -376,7 +376,7 @@ public class ContactManagerShould {
 		assertTrue("after, actual", after.equals(actual));
 	}
 	
-	@Test
+	//@Test
 	public void addMeetingNotesConvertsFutureMeetingToPastMeeting() {
 		Set<Contact> contacts = new HashSet<>(); 
 		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
