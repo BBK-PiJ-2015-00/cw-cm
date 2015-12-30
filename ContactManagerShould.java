@@ -354,6 +354,14 @@ public class ContactManagerShould {
 		
 		assertEquals("hello world", example.getNotes());
 	}
+
+	@Test
+	public void getThePastMeeting() {
+		List<Meeting> list = addPastMeetings();
+		PastMeeting expected = (PastMeeting) list.get(0);
+		
+		assertTrue(expected.equals(contactManager.getPastMeeting(2)));
+	}
 }
 
 
