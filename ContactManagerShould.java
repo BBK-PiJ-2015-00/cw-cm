@@ -768,6 +768,24 @@ public class ContactManagerShould {
 		ContactImpl actual = (ContactImpl) johnList.pop();
 		assertTrue(expected.equals(actual));
 	}
+	
+	@Test
+	public void getContactsIdsReturnsTwoContactsFromTwoIds() {
+		LinkedList<Contact> fullList = new LinkedList<Contact>(addContacts());
+		Collections.sort(fullList, (c1, c2) -> c1.getId() - c2.getId());
+		
+		LinkedList<Contact> smallList = new LinkedList<Contact>(contactManager.getContacts(1, 3));
+		assertEquals("size",2, smallList.size());
+		
+		ContactImpl expected = (ContactImpl) fullList.pop();
+		ContactImpl actual = (ContactImpl) smallList.pop();
+		assertTrue("first", expected.equals(actual));
+		
+		fullList.pop();
+		expected = (ContactImpl) fullList.pop();
+		actual = (ContactImpl) smallList.pop();
+		assertTrue("second", expected.equals(actual));
+	}
 }
 
 
