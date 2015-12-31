@@ -637,6 +637,25 @@ public class ContactManagerShould {
 	public void addNewContactReturnsIntGreaterThanZero() {
 		assertTrue(0 < contactManager.addNewContact("name", "notes"));
 	}
+	
+	@Test
+	public void addNewContactThrowsIllegalArgumentExceptionIfNameOrNotesIsEmptyString() {
+		boolean hasError = false;
+		try {
+			contactManager.addNewContact("", "notes");
+		} catch (IllegalArgumentException ex) {
+			hasError = true;
+		}
+		assertTrue("Name is empty", hasError);
+		
+		hasError = false;
+		try {
+			contactManager.addNewContact("name", "");
+		} catch (IllegalArgumentException ex) {
+			hasError = true;
+		}
+		assertTrue("Notes is empty", hasError);
+	}
 }
 
 
