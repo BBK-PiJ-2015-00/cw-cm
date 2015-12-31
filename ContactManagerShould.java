@@ -675,6 +675,34 @@ public class ContactManagerShould {
 		}
 		assertTrue("Notes is null", hasError);
 	}
+	
+	@Test
+	public void getContactsStringWillReturnTheWholeListWhenEmpty() {
+		Set<Contact> longList = addContacts();
+		
+		Set<Contact> list = contactManager.getContacts("");
+		
+		assertEquals(4, list.size());
+		assertTrue(list.equals(longList));
+	}
+	
+	private Set<Contact> addContacts() {
+		Set<Contact> list = new HashSet<>();
+		
+		int id = contactManager.addNewContact("John", "Short");
+		list.add(new ContactImpl(id, "John", "Short"));
+		
+		id = contactManager.addNewContact("Janet", "Tall");
+		list.add(new ContactImpl(id, "Janet", "Tall"));
+		
+		id = contactManager.addNewContact("John", "Angry");
+		list.add(new ContactImpl(id, "John", "Angry"));
+		
+		id = contactManager.addNewContact("Andrew", "Calm");
+		list.add(new ContactImpl(id, "Andrew", "Calm"));
+		
+		return list;
+	}
 }
 
 
