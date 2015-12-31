@@ -632,6 +632,11 @@ public class ContactManagerShould {
 		
 		assertTrue(hasError);
 	}
+	
+	@Test
+	public void addNewContactReturnsIntGreaterThanZero() {
+		assertTrue(0 < contactManager.addNewContact("name", "notes"));
+	}
 }
 
 
