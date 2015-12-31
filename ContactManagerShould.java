@@ -719,6 +719,27 @@ public class ContactManagerShould {
 		
 		return list;
 	}
+	
+	@Test
+	public void getContactsStringReturnsSetForGivenName() {
+		List<Contact> fullList = new LinkedList<Contact>(addContacts());
+		LinkedList<Contact> johnList = new LinkedList<Contact>(contactManager.getContacts("John"));
+		LinkedList<Contact> janetList = new LinkedList<Contact>(contactManager.getContacts("Janet"));
+		
+		Collections.sort(fullList, (c1, c2) -> c1.getId() - c2.getId());
+		Collections.sort(johnList, (c1, c2) -> c1.getId() - c2.getId());
+		Collections.sort(janetList, (c1, c2) -> c1.getId() - c2.getId());
+		
+		assertEquals("john", 2, johnList.size());
+		assertEquals("janet", 1, janetList.size());
+		
+		assertEquals(1, johnList.pop().getId());
+		assertEquals(3, johnList.pop().getId());
+		assertTrue(johnList.isEmpty());
+		
+		assertEquals(2, janetList.pop().getId());
+		assertTrue(janetList.isEmpty());
+	}
 }
 
 
