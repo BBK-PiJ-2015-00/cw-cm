@@ -789,9 +789,22 @@ public class ContactManagerShould {
 	
 	@Test
 	public void getContactsIdsThrowsIllegalArgumentExceptionWhenNoIds() {
+		addContacts();
 		boolean hasError = false;
 		try {
 			contactManager.getContacts();
+		} catch (IllegalArgumentException ex) {
+			hasError = true;
+		}
+		assertTrue(hasError);
+	}
+	
+	@Test
+	public void getContactsIdsThrowsIllegalArgumentExceptionWhenAnIdNotFound() {
+		addContacts();
+		boolean hasError = false;
+		try {
+			contactManager.getContacts(2, 300);
 		} catch (IllegalArgumentException ex) {
 			hasError = true;
 		}
