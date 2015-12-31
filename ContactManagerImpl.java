@@ -217,15 +217,21 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		
 		Set<Contact> result = new HashSet<>();
+		LinkedList<Contact> copy = new LinkedList<Contact>(cm_contacts);
+		int count = 0;
 		for(int i = 0; i < ids.length; i++) {
 			boolean foundId = false;
-			int id = ids[i];			
-			for(Iterator<Contact> contactsIt = cm_contacts.iterator(); contactsIt.hasNext(); ) {
-				Contact current = contactsIt.next();
+			int id = ids[i];
+			int size = copy.size();
+			for(int j = 0; j < size && count != ids.length; j++) {
+				Contact current = copy.pop();
 				if(current.getId() == id) {
 					result.add(current);
 					foundId = true;
+					count++;
 					break;
+				} else {
+					copy.addLast(current);
 				}
 			}
 			if(!foundId) {
