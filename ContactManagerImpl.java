@@ -195,6 +195,7 @@ public class ContactManagerImpl implements ContactManager {
 	
 	public Set<Contact> getContacts(String name) {
 		
+		//throws NullPointerException if name is null.
 		if(name.equals("")) {
 			return cm_contacts;
 		}
