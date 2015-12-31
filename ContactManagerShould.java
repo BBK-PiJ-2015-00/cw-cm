@@ -598,7 +598,7 @@ public class ContactManagerShould {
 	}
 	
 	@Test
-	public void addNewPastMeetingThrowsNullPointerExceptionIfAContactIsNull() {
+	public void addNewPastMeetingThrowsIllegalArgumentExceptionIfAContactIsNull() {
 		Set<Contact> contacts = new HashSet<>(); 
 		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
 		contacts.add(null);
@@ -609,7 +609,7 @@ public class ContactManagerShould {
 		boolean hasError = false;
 		try {
 			contactManager.addNewPastMeeting(contacts, date, "hello");
-		} catch (NullPointerException ex){
+		} catch (IllegalArgumentException ex){
 			hasError = true;
 		}
 		
