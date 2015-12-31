@@ -28,7 +28,13 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public PastMeeting getPastMeeting(int id) {
-		return (PastMeeting) getMeeting(id);
+		
+		Meeting meeting = getMeeting(id);
+		if(meeting != null && meeting.getClass() == FutureMeetingImpl.class) {
+			throw new IllegalStateException();
+		}
+		
+		return (PastMeeting) meeting;
 	}
 	
 	public FutureMeeting getFutureMeeting(int id) {
