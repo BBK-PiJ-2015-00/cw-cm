@@ -682,8 +682,8 @@ public class ContactManagerShould {
 		
 		Set<Contact> list = contactManager.getContacts("");
 		
-		assertEquals(4, list.size());
-		assertTrue(list.equals(longList));
+		assertEquals("full list", 4, list.size());
+		assertTrue("not same", list.equals(longList));
 	}
 	
 	private Set<Contact> addContacts() {
