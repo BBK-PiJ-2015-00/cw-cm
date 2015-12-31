@@ -487,7 +487,7 @@ public class ContactManagerShould {
 	}
 	
 	@Test
-	public void addFutureMeetingThrowsIllegalArgumentExceptionIfContactsNull() {
+	public void addFutureMeetingThrowsNullPointerExceptionIfContactsNull() {
 		Set<Contact> contacts = null;
 		Calendar date = Calendar.getInstance();
 		date.clear();
@@ -496,7 +496,7 @@ public class ContactManagerShould {
 		boolean hasError = false;
 		try {
 			contactManager.addFutureMeeting(contacts, date);
-		} catch (IllegalArgumentException ex){
+		} catch (NullPointerException ex){
 			hasError = true;
 		}
 		
