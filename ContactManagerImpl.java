@@ -2,10 +2,11 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.Iterator;
 import java.util.Collections;
 import java.util.Arrays;
+import java.util.Comparator;
 
 public class ContactManagerImpl implements ContactManager {
 	
@@ -13,10 +14,16 @@ public class ContactManagerImpl implements ContactManager {
 	private Set<Contact> cm_contacts;
 	private int cm_meetingId;
 	private int cm_contactId;	
+	private Comparator<Contact> contactComparator = new Comparator<Contact>() {
+		@Override
+		public int compare(Contact c1, Contact c2) {
+			return c1.getId() - c2.getId();
+		}
+	};
 	
 	public ContactManagerImpl() {
 		cm_meetings = new LinkedList<Meeting>();
-		cm_contacts = new HashSet<>();
+		cm_contacts = new TreeSet<>(contactComparator);
 		cm_meetingId = 0;
 		cm_contactId = 0;
 	}
@@ -200,7 +207,7 @@ public class ContactManagerImpl implements ContactManager {
 		if(name.equals("")) {
 			return cm_contacts;
 		}
-		Set<Contact> result = new HashSet<>();
+		Set<Contact> result = new TreeSet<>(contactComparator);
 		for(Iterator<Contact> contactsIt = cm_contacts.iterator(); contactsIt.hasNext(); ) {
 			Contact current = contactsIt.next();
 			if(current.getName().equals(name)) {
@@ -217,7 +224,7 @@ public class ContactManagerImpl implements ContactManager {
 			throw new IllegalArgumentException();
 		}
 		
-		Set<Contact> result = new HashSet<>();
+		Set<Contact> result = new TreeSet<>(contactComparator);
 		LinkedList<Contact> contactsCopy = new LinkedList<Contact>(cm_contacts);
 		Arrays.sort(ids);
 		Collections.sort(contactsCopy, (c1, c2) -> c1.getId() - c2.getId());
