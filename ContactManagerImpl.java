@@ -178,6 +178,9 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public int addNewContact(String name, String notes) {
+		if(name.equals("") || notes.equals("")) {
+			throw new IllegalArgumentException();
+		}
 		return 1;
 	}
 	
