@@ -212,6 +212,10 @@ public class ContactManagerImpl implements ContactManager {
 	
 	public Set<Contact> getContacts(int... ids) {
 		
+		if(ids.length == 0) {
+			throw new IllegalArgumentException();
+		}
+		
 		Set<Contact> result = new HashSet<>();
 		for(int i = 0; i < ids.length; i++) {
 			int id = ids[i];			
