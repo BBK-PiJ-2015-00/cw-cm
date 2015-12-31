@@ -129,6 +129,10 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
+		
+		if(contacts.contains(null)) {
+			throw new IllegalArgumentException();
+		}
 		cm_uniqueId++;
 		cm_meetings.add(new PastMeetingImpl(cm_uniqueId, date, contacts, text));
 	}
