@@ -532,6 +532,19 @@ public class ContactManagerShould {
 		}
 		assertTrue(hasError);
 	}
+	
+	@Test
+	public void getFutureMeetingThrowsIllegalStateExceptionIfMeetingIsInPast() {
+		addPastMeetings();
+		
+		boolean hasError = false;
+		try {
+			contactManager.getFutureMeeting(1);
+		} catch (IllegalStateException ex) {
+			hasError = true;
+		}
+		assertTrue(hasError);
+	}
 }
 
 
