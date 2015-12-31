@@ -194,7 +194,19 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public Set<Contact> getContacts(String name) {
-		return cm_contacts;
+		
+		if(name.equals("")) {
+			return cm_contacts;
+		}
+		Set<Contact> result = new HashSet<>();
+		for(Iterator<Contact> contactsIt = cm_contacts.iterator(); contactsIt.hasNext(); ) {
+			Contact current = contactsIt.next();
+			if(current.getName().equals(name)) {
+				result.add(current);
+			}
+		}
+		
+		return result;
 	}
 	
 	public Set<Contact> getContacts(int... ids) {
@@ -205,3 +217,18 @@ public class ContactManagerImpl implements ContactManager {
 		
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
