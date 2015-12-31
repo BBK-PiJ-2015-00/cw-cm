@@ -743,6 +743,18 @@ public class ContactManagerShould {
 		LinkedList<Contact> emptyList = new LinkedList<Contact>(contactManager.getContacts("Gertrud"));
 		assertTrue(emptyList.isEmpty());
 	}
+	
+	@Test
+	public void getContactsStringThrowsNullPointerExceptionWhenNameIsNull() {
+		boolean hasError = false;
+		try {
+			String dud = null;
+			contactManager.getContacts(dud);
+		} catch (NullPointerException ex) {
+			hasError = true;
+		}
+		assertTrue(hasError);
+	}
 }
 
 
