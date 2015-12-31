@@ -656,6 +656,25 @@ public class ContactManagerShould {
 		}
 		assertTrue("Notes is empty", hasError);
 	}
+	
+	@Test
+	public void addNewContactThrowsNullPointerExceptionIfNameOrNotesIsNull() {
+		boolean hasError = false;
+		try {
+			contactManager.addNewContact(null, "notes");
+		} catch (NullPointerException ex) {
+			hasError = true;
+		}
+		assertTrue("Name is null", hasError);
+		
+		hasError = false;
+		try {
+			contactManager.addNewContact("name", null);
+		} catch (NullPointerException ex) {
+			hasError = true;
+		}
+		assertTrue("Notes is null", hasError);
+	}
 }
 
 
