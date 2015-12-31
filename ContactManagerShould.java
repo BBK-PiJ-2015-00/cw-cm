@@ -596,6 +596,25 @@ public class ContactManagerShould {
 		
 		assertTrue(hasError);
 	}
+	
+	@Test
+	public void addNewPastMeetingThrowsNullPointerExceptionIfAContactIsNull() {
+		Set<Contact> contacts = new HashSet<>(); 
+		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
+		contacts.add(null);
+		Calendar date = Calendar.getInstance();
+		date.clear();
+		date.set(2000, 10, 10);
+		
+		boolean hasError = false;
+		try {
+			contactManager.addNewPastMeeting(contacts, date, "hello");
+		} catch (NullPointerException ex){
+			hasError = true;
+		}
+		
+		assertTrue(hasError);
+	}
 }
 
 
