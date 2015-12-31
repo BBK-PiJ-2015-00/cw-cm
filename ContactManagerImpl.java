@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Collections;
+import java.util.Arrays;
 
 public class ContactManagerImpl implements ContactManager {
 	
@@ -217,21 +218,20 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		
 		Set<Contact> result = new HashSet<>();
-		LinkedList<Contact> copy = new LinkedList<Contact>(cm_contacts);
-		int count = 0;
+		LinkedList<Contact> contactsCopy = new LinkedList<Contact>(cm_contacts);
+		Arrays.sort(ids);
+		Collections.sort(contactsCopy, (c1, c2) -> c1.getId() - c2.getId());
+		
 		for(int i = 0; i < ids.length; i++) {
 			boolean foundId = false;
 			int id = ids[i];
-			int size = copy.size();
-			for(int j = 0; j < size && count != ids.length; j++) {
-				Contact current = copy.pop();
+			int currentSize = contactsCopy.size();
+			for(int j = 0; j < currentSize; j++) {
+				Contact current = contactsCopy.pop();
 				if(current.getId() == id) {
 					result.add(current);
 					foundId = true;
-					count++;
 					break;
-				} else {
-					copy.addLast(current);
 				}
 			}
 			if(!foundId) {
