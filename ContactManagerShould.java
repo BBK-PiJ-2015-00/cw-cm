@@ -775,6 +775,7 @@ public class ContactManagerShould {
 		Collections.sort(fullList, (c1, c2) -> c1.getId() - c2.getId());
 		
 		LinkedList<Contact> smallList = new LinkedList<Contact>(contactManager.getContacts(1, 3));
+		Collections.sort(smallList, (c1, c2) -> c1.getId() - c2.getId());
 		assertEquals("size",2, smallList.size());
 		
 		ContactImpl expected = (ContactImpl) fullList.pop();
