@@ -786,7 +786,23 @@ public class ContactManagerShould {
 		actual = (ContactImpl) smallList.pop();
 		assertTrue("second", expected.equals(actual));
 	}
+	
+	@Test
+	public void getContactsIdsThrowsIllegalArgumentExceptionWhenNoIds() {
+		boolean hasError = false;
+		try {
+			contactManager.getContacts();
+		} catch (IllegalArgumentException ex) {
+			hasError = true;
+		}
+		assertTrue(hasError);
+	}
 }
+
+
+
+
+
 
 
 
