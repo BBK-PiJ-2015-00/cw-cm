@@ -739,6 +739,9 @@ public class ContactManagerShould {
 		
 		assertEquals(2, janetList.pop().getId());
 		assertTrue(janetList.isEmpty());
+		
+		LinkedList<Contact> emptyList = new LinkedList<Contact>(contactManager.getContacts("Gertrud"));
+		assertTrue(emptyList.isEmpty());
 	}
 }
 
