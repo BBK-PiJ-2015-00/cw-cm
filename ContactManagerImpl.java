@@ -178,6 +178,8 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public int addNewContact(String name, String notes) {
+		
+		//also throws NullPointerException if name or notes are null
 		if(name.equals("") || notes.equals("")) {
 			throw new IllegalArgumentException();
 		}
