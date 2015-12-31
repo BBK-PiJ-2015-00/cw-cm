@@ -755,6 +755,19 @@ public class ContactManagerShould {
 		}
 		assertTrue(hasError);
 	}
+	
+	@Test
+	public void getContactsIdsReturnsOneContactFromOneId() {
+		LinkedList<Contact> fullList = new LinkedList<Contact>(addContacts());
+		Collections.sort(fullList, (c1, c2) -> c1.getId() - c2.getId());
+		
+		LinkedList<Contact> johnList = new LinkedList<Contact>(contactManager.getContacts(1));		
+		assertEquals("size", 1, johnList.size());
+		
+		ContactImpl expected = (ContactImpl) fullList.pop();
+		ContactImpl actual = (ContactImpl) johnList.pop();
+		assertTrue(expected.equals(actual));
+	}
 }
 
 
