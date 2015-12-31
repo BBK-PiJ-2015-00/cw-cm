@@ -218,13 +218,18 @@ public class ContactManagerImpl implements ContactManager {
 		
 		Set<Contact> result = new HashSet<>();
 		for(int i = 0; i < ids.length; i++) {
+			boolean foundId = false;
 			int id = ids[i];			
 			for(Iterator<Contact> contactsIt = cm_contacts.iterator(); contactsIt.hasNext(); ) {
 				Contact current = contactsIt.next();
 				if(current.getId() == id) {
 					result.add(current);
+					foundId = true;
 					break;
 				}
+			}
+			if(!foundId) {
+				throw new IllegalArgumentException();
 			}
 		}
 		
