@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Collections;
 import java.util.Arrays;
+import java.util.Iterator;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -678,28 +679,43 @@ public class ContactManagerShould {
 	
 	@Test
 	public void getContactsStringWillReturnTheWholeListWhenEmpty() {
-		Set<Contact> longList = addContacts();
+		Set<Contact> longSet = addContacts();
 		
-		Set<Contact> list = contactManager.getContacts("");
+		Set<Contact> set = contactManager.getContacts("");
 		
-		assertEquals("full list", 4, list.size());
-		assertTrue("not same", list.equals(longList));
+		assertEquals("longList", 4, longSet.size());
+		assertEquals("full list", 4, set.size());
+		
+		List<Contact> list = new LinkedList<Contact>(set);
+		List<Contact> longList = new LinkedList<Contact>(longSet);
+		
+		Collections.sort(list, (c1, c2) -> c1.getId() - c2.getId());
+		Collections.sort(longList, (c1, c2) -> c1.getId() - c2.getId());
+		
+		Iterator<Contact> listIt = list.iterator();
+		Iterator<Contact> longListIt = longList.iterator();
+		int i = 0;
+		while(listIt.hasNext()) {
+			ContactImpl current = (ContactImpl) listIt.next();
+			Contact compare = (Contact) longListIt.next();
+			assertTrue(i + " loop", current.equals(compare));
+		}
 	}
 	
 	private Set<Contact> addContacts() {
 		Set<Contact> list = new HashSet<>();
 		
-		int id = contactManager.addNewContact("John", "Short");
-		list.add(new ContactImpl(id, "John", "Short"));
+		int id1 = contactManager.addNewContact("John", "Short");
+		list.add(new ContactImpl(id1, "John", "Short"));
 		
-		id = contactManager.addNewContact("Janet", "Tall");
-		list.add(new ContactImpl(id, "Janet", "Tall"));
+		int id2 = contactManager.addNewContact("Janet", "Tall");
+		list.add(new ContactImpl(id2, "Janet", "Tall"));
 		
-		id = contactManager.addNewContact("John", "Angry");
-		list.add(new ContactImpl(id, "John", "Angry"));
+		int id3 = contactManager.addNewContact("John", "Angry");
+		list.add(new ContactImpl(id3, "John", "Angry"));
 		
-		id = contactManager.addNewContact("Andrew", "Calm");
-		list.add(new ContactImpl(id, "Andrew", "Calm"));
+		int id4 = contactManager.addNewContact("Andrew", "Calm");
+		list.add(new ContactImpl(id4, "Andrew", "Calm"));
 		
 		return list;
 	}
