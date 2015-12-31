@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Collections;
 import java.util.Arrays;
@@ -207,7 +208,7 @@ public class ContactManagerImpl implements ContactManager {
 		if(name.equals("")) {
 			return cm_contacts;
 		}
-		Set<Contact> result = new TreeSet<>(contactComparator);
+		Set<Contact> result = new HashSet<>();
 		for(Iterator<Contact> contactsIt = cm_contacts.iterator(); contactsIt.hasNext(); ) {
 			Contact current = contactsIt.next();
 			if(current.getName().equals(name)) {
@@ -224,16 +225,14 @@ public class ContactManagerImpl implements ContactManager {
 			throw new IllegalArgumentException();
 		}
 		
-		Set<Contact> result = new TreeSet<>(contactComparator);
+		Set<Contact> result = new HashSet<>();
 		LinkedList<Contact> contactsCopy = new LinkedList<Contact>(cm_contacts);
 		Arrays.sort(ids);
-		Collections.sort(contactsCopy, (c1, c2) -> c1.getId() - c2.getId());
 		
 		for(int i = 0; i < ids.length; i++) {
 			boolean foundId = false;
-			int id = ids[i];
-			int currentSize = contactsCopy.size();
-			for(int j = 0; j < currentSize; j++) {
+			int id = ids[i];			
+			for(int j = 0; j < contactsCopy.size(); j++) {
 				Contact current = contactsCopy.pop();
 				if(current.getId() == id) {
 					result.add(current);
