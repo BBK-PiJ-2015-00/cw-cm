@@ -178,7 +178,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public int addNewContact(String name, String notes) {
-		return -1;
+		return 1;
 	}
 	
 	public Set<Contact> getContacts(String name) {
