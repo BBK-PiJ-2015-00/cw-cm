@@ -2,17 +2,22 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Collections;
 
 public class ContactManagerImpl implements ContactManager {
 	
 	private List<Meeting> cm_meetings;
-	private int cm_uniqueId;
+	private Set<Contact> cm_contacts;
+	private int cm_meetingId;
+	private int cm_contactId;	
 	
 	public ContactManagerImpl() {
 		cm_meetings = new LinkedList<Meeting>();
-		cm_uniqueId = 0;
+		cm_contacts = new HashSet<>();
+		cm_meetingId = 0;
+		cm_contactId = 0;
 	}
 	
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
@@ -22,9 +27,9 @@ public class ContactManagerImpl implements ContactManager {
 			throw new IllegalArgumentException();
 		}
 		
-		cm_uniqueId++;
-		cm_meetings.add(new FutureMeetingImpl(cm_uniqueId, date, contacts));
-		return cm_uniqueId;
+		cm_meetingId++;
+		cm_meetings.add(new FutureMeetingImpl(cm_meetingId, date, contacts));
+		return cm_meetingId;
 	}
 	
 	public PastMeeting getPastMeeting(int id) {
@@ -133,8 +138,8 @@ public class ContactManagerImpl implements ContactManager {
 		if(contacts.contains(null)) {
 			throw new IllegalArgumentException();
 		}
-		cm_uniqueId++;
-		cm_meetings.add(new PastMeetingImpl(cm_uniqueId, date, contacts, text));
+		cm_meetingId++;
+		cm_meetings.add(new PastMeetingImpl(cm_meetingId, date, contacts, text));
 	}
 	
 	public PastMeeting addMeetingNotes(int id, String text) {
@@ -183,11 +188,13 @@ public class ContactManagerImpl implements ContactManager {
 		if(name.equals("") || notes.equals("")) {
 			throw new IllegalArgumentException();
 		}
-		return 1;
+		cm_contactId++;
+		cm_contacts.add(new ContactImpl(cm_contactId, name, notes));
+		return cm_contactId;
 	}
 	
 	public Set<Contact> getContacts(String name) {
-		return null;
+		return cm_contacts;
 	}
 	
 	public Set<Contact> getContacts(int... ids) {
