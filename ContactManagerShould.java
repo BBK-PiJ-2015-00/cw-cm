@@ -819,6 +819,7 @@ public class ContactManagerShould {
 		try {
 			Set<Contact> list = new HashSet<>();		
 			list.add(new ContactImpl(6, "Arnold", "Short"));
+			list.add(new ContactImpl(1, "John", "Short"));
 			Calendar date = Calendar.getInstance();
 			date.set(3000, 2, 2);
 			contactManager.addFutureMeeting(list, date);
