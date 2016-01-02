@@ -20,6 +20,7 @@ public class ContactManagerShould {
 	@Before
 	public void createManager() {
 		contactManager = new ContactManagerImpl();
+		addContacts();
 	}
 	
 	@Test
@@ -30,7 +31,7 @@ public class ContactManagerShould {
 	@Test
 	public void returnGreaterThanZeroWhenAddFutureMeeting() {
 		Set<Contact> contacts = new HashSet<>(); 
-		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
+		contacts.add(new ContactImpl(1, "John", "Short"));
 		Calendar futureDate = Calendar.getInstance();
 		futureDate.set(3000, 12, 10);
 		
@@ -45,7 +46,7 @@ public class ContactManagerShould {
 	@Test
 	public void getTheFutureMeeting() {
 		Set<Contact> contacts = new HashSet<>(); 
-		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
+		contacts.add(new ContactImpl(1, "John", "Short"));
 		Calendar futureDate = Calendar.getInstance();
 		futureDate.set(3000, 12, 10);
 		
@@ -67,7 +68,7 @@ public class ContactManagerShould {
 	@Test
 	public void getTheMeeting() {
 		Set<Contact> contacts = new HashSet<>(); 
-		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
+		contacts.add(new ContactImpl(1, "John", "Short"));
 		Calendar futureDate = Calendar.getInstance();
 		futureDate.set(3000, 12, 10);
 		
@@ -89,7 +90,7 @@ public class ContactManagerShould {
 	@Test
 	public void getTheFutureMeetingListForJohn() {
 		List<Meeting> expected = addMeetings();
-		List<Meeting> actual = contactManager.getFutureMeetingList(new ContactImpl(1, "John"));
+		List<Meeting> actual = contactManager.getFutureMeetingList(new ContactImpl(1, "John", "Short"));
 		
 		MeetingImpl firstExpected = (MeetingImpl) expected.get(2);
 		MeetingImpl secondExpected = (MeetingImpl) expected.get(0);
@@ -101,10 +102,10 @@ public class ContactManagerShould {
 	private List<Meeting> addMeetings() {
 		List<Meeting> list = new LinkedList<Meeting>();
 		Set<Contact> contacts = new HashSet<>();
-		contacts.add(new ContactImpl(1, "John"));
+		contacts.add(new ContactImpl(1, "John", "Short"));
 		
 		Set<Contact> contacts2 = new HashSet<>();
-		contacts2.add(new ContactImpl(2, "Andrew"));
+		contacts2.add(new ContactImpl(2, "Janet", "Tall"));
 		
 		Calendar futureDate = Calendar.getInstance();
 		int id;
@@ -133,7 +134,7 @@ public class ContactManagerShould {
 	@Test
 	public void getFutureMeetingReturnsEmptyListWhenSusanHasNoFutureMeetings() {
 		List<Meeting> initialList = addMeetings();
-		List<Meeting> finalList = contactManager.getFutureMeetingList(new ContactImpl(3, "Susan"));
+		List<Meeting> finalList = contactManager.getFutureMeetingList(new ContactImpl(4, "Andrew", "Calm"));
 		
 		assertEquals(3, initialList.size());
 		assertEquals(0, finalList.size());
@@ -143,7 +144,7 @@ public class ContactManagerShould {
 	@Test
 	public void getFutureMeetingListWillBeChronologicallySorted() {
 		addMeetings();
-		List<Meeting> originalList = contactManager.getFutureMeetingList(new ContactImpl(1, "John"));
+		List<Meeting> originalList = contactManager.getFutureMeetingList(new ContactImpl(1, "John", "Short"));
 		List<Meeting> sortedList = new LinkedList<Meeting>();
 		sortedList.addAll(originalList);
 
@@ -155,11 +156,11 @@ public class ContactManagerShould {
 	@Test
 	public void getFutureMeetingListWillHaveNoDuplicates() {
 		List<Meeting> list = addMeetings();
-		List<Meeting> sortedList = contactManager.getFutureMeetingList(new ContactImpl(1, "John"));
+		List<Meeting> sortedList = contactManager.getFutureMeetingList(new ContactImpl(1, "John", "Short"));
 		
 		//add duplicate
 		Set<Contact> contacts = new HashSet<>();
-		contacts.add(new ContactImpl(1, "John"));
+		contacts.add(new ContactImpl(1, "John", "Short"));
 		Calendar futureDate1 = Calendar.getInstance();		
 		futureDate1.clear();
 		futureDate1.set(2500, 11, 10);
@@ -187,7 +188,7 @@ public class ContactManagerShould {
 	private List<Meeting> addMeetingsOnDate() {
 		List<Meeting> list = new LinkedList<Meeting>();
 		Set<Contact> contacts = new HashSet<>();
-		contacts.add(new ContactImpl(1, "John"));
+		contacts.add(new ContactImpl(1, "John", "Short"));
 		
 		Calendar futureDate1 = Calendar.getInstance();
 		futureDate1.clear();
@@ -679,6 +680,7 @@ public class ContactManagerShould {
 	
 	@Test
 	public void getContactsStringWillReturnTheWholeListWhenEmpty() {
+		contactManager = new ContactManagerImpl();
 		Set<Contact> longSet = addContacts();
 		
 		Set<Contact> set = contactManager.getContacts("");
@@ -722,6 +724,7 @@ public class ContactManagerShould {
 	
 	@Test
 	public void getContactsStringReturnsSetForGivenName() {
+		contactManager = new ContactManagerImpl();
 		List<Contact> fullList = new LinkedList<Contact>(addContacts());
 		LinkedList<Contact> johnList = new LinkedList<Contact>(contactManager.getContacts("John"));
 		LinkedList<Contact> janetList = new LinkedList<Contact>(contactManager.getContacts("Janet"));
@@ -758,6 +761,7 @@ public class ContactManagerShould {
 	
 	@Test
 	public void getContactsIdsReturnsOneContactFromOneId() {
+		contactManager = new ContactManagerImpl();
 		LinkedList<Contact> fullList = new LinkedList<Contact>(addContacts());
 		Collections.sort(fullList, (c1, c2) -> c1.getId() - c2.getId());
 		
@@ -771,6 +775,7 @@ public class ContactManagerShould {
 	
 	@Test
 	public void getContactsIdsReturnsTwoContactsFromTwoIds() {
+		contactManager = new ContactManagerImpl();
 		LinkedList<Contact> fullList = new LinkedList<Contact>(addContacts());
 		Collections.sort(fullList, (c1, c2) -> c1.getId() - c2.getId());
 		
@@ -790,7 +795,6 @@ public class ContactManagerShould {
 	
 	@Test
 	public void getContactsIdsThrowsIllegalArgumentExceptionWhenNoIds() {
-		addContacts();
 		boolean hasError = false;
 		try {
 			contactManager.getContacts();
@@ -802,7 +806,6 @@ public class ContactManagerShould {
 	
 	@Test
 	public void getContactsIdsThrowsIllegalArgumentExceptionWhenAnIdNotFound() {
-		addContacts();
 		boolean hasError = false;
 		try {
 			contactManager.getContacts(2, 300);
@@ -814,7 +817,6 @@ public class ContactManagerShould {
 	
 	@Test 
 	public void addFutureMeetingThrowsIllegalArgumentExceptionIfAContactIsUnknown() {
-		addContacts();
 		boolean hasError = false;
 		try {
 			Set<Contact> list = new HashSet<>();		
