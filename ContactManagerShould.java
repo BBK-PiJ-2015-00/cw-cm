@@ -254,7 +254,7 @@ public class ContactManagerShould {
 		pastDate.set(Calendar.HOUR_OF_DAY, 15);
 		
 		Set<Contact> contacts = new HashSet<>();
-		contacts.add(new ContactImpl(1, "John"));
+		contacts.add(new ContactImpl(1, "John", "Short"));
 		
 		String notes = "Hello";
 		
@@ -264,7 +264,7 @@ public class ContactManagerShould {
 	@Test
 	public void getThePastMeetingListForJanet() {
 		List<Meeting> fullList = addPastMeetings();
-		List<PastMeeting> smallList = contactManager.getPastMeetingListFor(new ContactImpl(2, "Janet"));
+		List<PastMeeting> smallList = contactManager.getPastMeetingListFor(new ContactImpl(2, "Janet", "Tall"));
 		
 		assertTrue(smallList.size() != fullList.size());
 		assertEquals(3, smallList.get(0).getId());
@@ -292,9 +292,9 @@ public class ContactManagerShould {
 		pastDate3.set(1990, 3, 10);
 		pastDate3.set(Calendar.HOUR_OF_DAY, 12);
 		
-		Contact john = new ContactImpl(1, "John");
-		Contact janet = new ContactImpl(2, "Janet");
-		Contact andrew = new ContactImpl(3, "Andrew");
+		Contact john = new ContactImpl(1, "John", "Short");
+		Contact janet = new ContactImpl(2, "Janet", "Tall");
+		Contact andrew = new ContactImpl(4, "Andrew", "Calm");
 		
 		Set<Contact> contacts1 = new HashSet<>();
 		contacts1.add(john);
@@ -323,7 +323,7 @@ public class ContactManagerShould {
 	@Test
 	public void getThePastMeetingListForArnoldIsEmpty() {
 		addPastMeetings();
-		List<PastMeeting> smallList = contactManager.getPastMeetingListFor(new ContactImpl(4, "Arnold"));
+		List<PastMeeting> smallList = contactManager.getPastMeetingListFor(new ContactImpl(3, "John", "Angry"));
 		
 		assertTrue(smallList.isEmpty());
 	}
@@ -331,7 +331,7 @@ public class ContactManagerShould {
 	@Test
 	public void getThePastMeetingListForJohnIsSorted() {
 		addPastMeetings();
-		List<PastMeeting> originalList = contactManager.getPastMeetingListFor(new ContactImpl(1, "John"));
+		List<PastMeeting> originalList = contactManager.getPastMeetingListFor(new ContactImpl(1, "John", "Short"));
 		
 		List<PastMeeting> sortedList = new LinkedList<PastMeeting>();
 		sortedList.addAll(originalList);
