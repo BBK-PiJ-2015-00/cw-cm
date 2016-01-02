@@ -154,6 +154,21 @@ public class LargeContactManagerShould {
 			assertTrue(i + ": true", meeting.getClass() == FutureMeetingImpl.class);
 		}
 	}
+	
+	@Test
+	public void onlyReturnFutureMeetingsWhenGettingFutureMeetingList() {
+		Contact hen4 = new ContactImpl(4, "Henry", "abdddc");
+		List<Meeting> list = contactManager.getFutureMeetingList(hen4);
+		
+		int index = 0;
+		for(Iterator<Meeting> it = list.iterator(); it.hasNext(); index++) {
+			Meeting current = it.next();
+			assertTrue(index + "", current.getClass() == FutureMeetingImpl.class);
+		}
+	}
+	
+	
+	
 }
 
 
