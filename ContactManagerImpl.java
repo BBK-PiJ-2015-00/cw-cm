@@ -29,10 +29,31 @@ public class ContactManagerImpl implements ContactManager {
 		cm_contactId = 0;
 	}
 	
+	private boolean contactExists(Set<Contact> contacts) {
+		
+		for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {
+			boolean foundContact = false;
+			ContactImpl currentContact = (ContactImpl) contactsIt.next();
+			
+			for(Iterator<Contact> cm_contactsIt = cm_contacts.iterator(); cm_contactsIt.hasNext(); ) {
+				Contact compare = cm_contactsIt.next();
+				if(currentContact.equals(compare)) {
+					foundContact = true;
+					break;
+				}
+			}
+			if(!foundContact) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
 		
 		Calendar dateNow = Calendar.getInstance();
-		if(date.before(dateNow) || contacts.contains(null)) {
+		if(date.before(dateNow) || contacts.contains(null) || !contactExists(contacts)) {
 			throw new IllegalArgumentException();
 		}
 		
