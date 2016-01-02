@@ -551,7 +551,7 @@ public class ContactManagerShould {
 	@Test
 	public void addNewPastMeetingThrowsNullPointerExceptionIfDateIsNull() {
 		Set<Contact> contacts = new HashSet<>(); 
-		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
+		contacts.add(new ContactImpl(1, "John", "Short"));
 		Calendar date = null;
 		
 		boolean hasError = false;
@@ -567,7 +567,7 @@ public class ContactManagerShould {
 	@Test
 	public void addNewPastMeetingThrowsNullPointerExceptionIfNoteIsNull() {
 		Set<Contact> contacts = new HashSet<>(); 
-		contacts.add(new ContactImpl(1, "Sam", "Not nice"));
+		contacts.add(new ContactImpl(1, "John", "Short"));
 		Calendar date = Calendar.getInstance();
 		date.clear();
 		date.set(2000, 10, 10);
