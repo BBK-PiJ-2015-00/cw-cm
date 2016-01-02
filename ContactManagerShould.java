@@ -841,6 +841,17 @@ public class ContactManagerShould {
 		}
 		assertTrue(hasError);
 	}
+	
+	@Test 
+	public void getFutureMeetingListThrowsNullPointerExceptionIfContactIsNull() {
+		boolean hasError = false;
+		try {			
+			contactManager.getFutureMeetingList(null);
+		} catch (NullPointerException ex) {
+			hasError = true;
+		}
+		assertTrue(hasError);
+	}
 }
 
 
