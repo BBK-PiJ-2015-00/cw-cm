@@ -31,21 +31,8 @@ public class ContactManagerImpl implements ContactManager {
 	
 	private boolean contactExists(Set<Contact> contacts) {
 		
-		LinkedList<Contact> sortedList = new LinkedList<Contact>(contacts);
-		Collections.sort(sortedList, (c1, c2) -> c1.getId() - c2.getId());
-		
-		for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {
-			boolean foundContact = false;
-			ContactImpl currentContact = (ContactImpl) contactsIt.next();
-			
-			for(Iterator<Contact> cm_contactsIt = cm_contacts.iterator(); cm_contactsIt.hasNext(); ) {
-				Contact compare = cm_contactsIt.next();
-				if(currentContact.equals(compare)) {
-					foundContact = true;
-					break;
-				}
-			}
-			if(!foundContact) {
+		for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {			
+			if(!contactExists(contactsIt.next())) {
 				return false;
 			}
 		}
@@ -54,9 +41,16 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	private boolean contactExists(Contact contact) {
-		Set<Contact> set = new HashSet<>();
-		set.add(contact);
-		return contactExists(set);
+		
+		ContactImpl currentContact = (ContactImpl) contact;
+		for(Iterator<Contact> cm_contactsIt = cm_contacts.iterator(); cm_contactsIt.hasNext(); ) {
+			Contact compare = cm_contactsIt.next();
+			if(currentContact.equals(compare)) {
+				return true;
+			}
+		}
+			
+		return false;
 	}
 	
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
