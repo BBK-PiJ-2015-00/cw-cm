@@ -146,8 +146,11 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public List<PastMeeting> getPastMeetingListFor(Contact contact) {
-		List<PastMeeting> result = new LinkedList<PastMeeting>();
 		
+		if(!contactExists(contact)) {
+			throw new IllegalArgumentException();
+		}
+		List<PastMeeting> result = new LinkedList<PastMeeting>();		
 		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
 			
 			Meeting currentMeeting = meetingsIt.next();
