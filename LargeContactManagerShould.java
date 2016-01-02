@@ -167,6 +167,18 @@ public class LargeContactManagerShould {
 		}
 	}
 	
+	@Test
+	public void onlyReturnPastMeetingsWhenGettingPastMeetingList() {
+		Contact hen4 = new ContactImpl(4, "Henry", "abdddc");
+		List<PastMeeting> list = contactManager.getPastMeetingListFor(hen4);
+		
+		int index = 0;
+		for(Iterator<PastMeeting> it = list.iterator(); it.hasNext(); index++) {
+			Meeting current = it.next();
+			assertTrue(index + "", current.getClass() == PastMeetingImpl.class);
+		}
+	}
+	
 	
 	
 }
