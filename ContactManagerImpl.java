@@ -174,7 +174,7 @@ public class ContactManagerImpl implements ContactManager {
 	
 	public void addNewPastMeeting(Set<Contact> contacts, Calendar date, String text) {
 		
-		if(contacts.contains(null)) {
+		if(contacts.contains(null) || !contactExists(contacts)) {
 			throw new IllegalArgumentException();
 		}
 		cm_meetingId++;
