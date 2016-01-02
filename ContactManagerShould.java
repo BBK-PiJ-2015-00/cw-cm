@@ -830,6 +830,17 @@ public class ContactManagerShould {
 		}
 		assertTrue(hasError);
 	}
+	
+	@Test 
+	public void getFutureMeetingListThrowsIllegalArgumentExceptionIfAContactIsUnknown() {
+		boolean hasError = false;
+		try {			
+			contactManager.getFutureMeetingList(new ContactImpl(6, "Arnold", "Short"));
+		} catch (IllegalArgumentException ex) {
+			hasError = true;
+		}
+		assertTrue(hasError);
+	}
 }
 
 
