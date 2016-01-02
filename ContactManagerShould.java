@@ -885,6 +885,21 @@ public class ContactManagerShould {
 		}
 		assertTrue(hasError);
 	}
+	
+	@Test
+	public void addNewPastMeetingThrowsIllegalArgumentExceptionIfAContactNotExists() {
+		boolean hasError = false;
+		try {
+			Set<Contact> contacts = new HashSet<>();
+			contacts.add(new ContactImpl(6, "Arnold", "Short"));
+			Calendar date = Calendar.getInstance();
+			date.set(2000, 2, 2);
+			contactManager.addNewPastMeeting(contacts, date, "hello");
+		} catch (IllegalArgumentException ex) {
+			hasError = true;
+		}
+		assertTrue(hasError);
+	}
 }
 
 
