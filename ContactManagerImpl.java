@@ -35,8 +35,7 @@ public class ContactManagerImpl implements ContactManager {
 			if(!contactExists(contactsIt.next())) {
 				return false;
 			}
-		}
-		
+		}		
 		return true;
 	}
 	
@@ -48,8 +47,7 @@ public class ContactManagerImpl implements ContactManager {
 			if(currentContact.equals(compare)) {
 				return true;
 			}
-		}
-			
+		}			
 		return false;
 	}
 	
@@ -70,8 +68,7 @@ public class ContactManagerImpl implements ContactManager {
 		Meeting meeting = getMeeting(id);
 		if(meeting != null && meeting.getClass() == FutureMeetingImpl.class) {
 			throw new IllegalStateException();
-		}
-		
+		}		
 		return (PastMeeting) meeting;
 	}
 	
@@ -80,8 +77,7 @@ public class ContactManagerImpl implements ContactManager {
 		Meeting meeting = getMeeting(id);
 		if(meeting != null && meeting.getClass() == PastMeetingImpl.class) {
 			throw new IllegalStateException();
-		}
-		
+		}		
 		return (FutureMeeting) meeting;
 	}
 	
@@ -123,8 +119,11 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public List<Meeting> getMeetingListOn(Calendar date) {
-		List<Meeting> result = new LinkedList<Meeting>();
 		
+		if(date.equals(null)) {
+			throw new NullPointerException();
+		}
+		List<Meeting> result = new LinkedList<Meeting>();
 		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
 			Meeting currentMeeting = meetingsIt.next();
 			Calendar currentDate = currentMeeting.getDate();
