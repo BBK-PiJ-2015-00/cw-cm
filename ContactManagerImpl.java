@@ -31,6 +31,9 @@ public class ContactManagerImpl implements ContactManager {
 	
 	private boolean contactExists(Set<Contact> contacts) {
 		
+		LinkedList<Contact> sortedList = new LinkedList<Contact>(contacts);
+		Collections.sort(sortedList, (c1, c2) -> c1.getId() - c2.getId());
+		
 		for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {
 			boolean foundContact = false;
 			ContactImpl currentContact = (ContactImpl) contactsIt.next();
@@ -48,6 +51,12 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		
 		return true;
+	}
+	
+	private boolean contactExists(Contact contact) {
+		Set<Contact> set = new HashSet<>();
+		set.add(contact);
+		return contactExists(set);
 	}
 	
 	public int addFutureMeeting(Set<Contact> contacts, Calendar date) {
@@ -95,8 +104,12 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public List<Meeting> getFutureMeetingList(Contact contact) {
-		List<Meeting> result = new LinkedList<Meeting>();
 		
+		if(!contactExists(contact)) {
+			throw new IllegalArgumentException();
+		}
+		
+		List<Meeting> result = new LinkedList<Meeting>();		
 		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
 			
 			Meeting currentMeeting = meetingsIt.next();
