@@ -811,6 +811,22 @@ public class ContactManagerShould {
 		}
 		assertTrue(hasError);
 	}
+	
+	@Test 
+	public void addFutureMeetingThrowsIllegalArgumentExceptionIfAContactIsUnknown() {
+		addContacts();
+		boolean hasError = false;
+		try {
+			Set<Contact> list = new HashSet<>();		
+			list.add(new ContactImpl(6, "Arnold", "Short"));
+			Calendar date = Calendar.getInstance();
+			date.set(3000, 2, 2);
+			contactManager.addFutureMeeting(list, date);
+		} catch (IllegalArgumentException ex) {
+			hasError = true;
+		}
+		assertTrue(hasError);
+	}
 }
 
 
