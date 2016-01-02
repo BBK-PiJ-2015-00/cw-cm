@@ -103,6 +103,10 @@ public class ContactManagerImpl implements ContactManager {
 		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
 			
 			Meeting currentMeeting = meetingsIt.next();
+			
+			if(currentMeeting.getClass() != FutureMeetingImpl.class) {
+				continue;
+			}
 			Set<Contact> contacts = currentMeeting.getContacts();
 			
 			for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {
