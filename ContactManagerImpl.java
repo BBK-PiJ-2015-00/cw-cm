@@ -189,8 +189,18 @@ public class ContactManagerImpl implements ContactManager {
 		
 		if(text.equals(null)) {
 			throw new NullPointerException();
-		}	
-		Meeting temp = getMeeting(id);
+		}
+		//find meeting index
+		int index = 0;
+		Meeting temp = null;
+		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); index++) {
+			
+			Meeting current = meetingsIt.next();			
+			if(id == current.getId()) {
+				temp = current;
+				break;
+			}
+		}
 		if(temp == null) {
 			throw new IllegalArgumentException();
 		}
@@ -209,17 +219,7 @@ public class ContactManagerImpl implements ContactManager {
 		notes += text;
 		
 		PastMeeting result = new PastMeetingImpl(id, date, contacts, notes);
-		
-		//find meeting index
-		int index = -1;
-		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
-			index++;
-			Meeting current = meetingsIt.next();
-			
-			if(id == current.getId()) {
-				break;
-			}
-		}
+		//convert meeting to a past meeting
 		cm_meetings.set(index, result);
 		
 		return result;
