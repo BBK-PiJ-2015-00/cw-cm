@@ -18,7 +18,6 @@ import org.junit.Before;
 public class LargeContactManagerShould {
 	
 	private ContactManager contactManager;
-	private ContactManager newContactManager;
 		
 	@Before
 	public void createManager() {
@@ -219,6 +218,83 @@ public class LargeContactManagerShould {
 		assertTrue("jan5", jan5.equals(it.next()));
 		assertTrue("sus6", sus6.equals(it.next()));
 		assertTrue("hen7", hen7.equals(it.next()));
+	}
+	
+	@Test
+	public void readTxtFileToGetMeetingsOnOpen() {
+		readTxtFileToGetContactsOnOpen();
+		List<Meeting> expectedList = makeMeetings();		
+		
+		int i = 0;
+		for(Iterator<Meeting> it = expectedList.iterator(); it.hasNext(); i++) {
+			MeetingImpl expected = (MeetingImpl) it.next();
+			Meeting actual = contactManager.getMeeting(i);
+			assertTrue(i + " loop", expected.equals(actual));
+		}
+	}
+	
+	private List<Meeting> makeMeetings() {
+		List<Meeting> list = new LinkedList<Meeting>();
+		Set<Contact> team1 = new HashSet<>();
+		Set<Contact> team2 = new HashSet<>();
+		Set<Contact> team3 = new HashSet<>();
+		Set<Contact> team4 = new HashSet<>();
+		Contact hen1 = new ContactImpl(1, "Henry", "abc");		
+		Contact jan2 = new ContactImpl(2, "Janet", "aaa");		
+		Contact joh3 = new ContactImpl(3, "John", "bbb");		
+		Contact hen4 = new ContactImpl(4, "Henry", "abdddc");		
+		Contact jan5 = new ContactImpl(5, "Janet", "ccc");		
+		Contact sus6 = new ContactImpl(6, "Susan", "desa");		
+		Contact hen7 = new ContactImpl(7, "Henry", "hhrd");
+		team1.add(hen1);
+		team1.add(hen4);
+		team1.add(joh3);		
+		team2.add(hen1);
+		team2.add(jan2);
+		team2.add(sus6);
+		team2.add(hen7);		
+		team3.add(hen1);
+		team3.add(jan2);
+		team3.add(sus6);
+		team3.add(hen7);		
+		team4.add(jan2);
+		team4.add(jan5);
+		team4.add(joh3);
+		team4.add(hen4);
+		team4.add(hen1);
+		Calendar pastDate1 = Calendar.getInstance();
+		pastDate1.clear();
+		pastDate1.set(2000,4,4);		
+		Calendar pastDate2 = Calendar.getInstance();
+		pastDate2.clear();
+		pastDate2.set(2001,4,3);		
+		Calendar pastDate3 = Calendar.getInstance();
+		pastDate3.clear();
+		pastDate3.set(2001,4,4);		
+		Calendar pastDate4 = Calendar.getInstance();
+		pastDate4.clear();
+		pastDate4.set(1950,4,4);
+		list.add(new PastMeetingImpl(1,pastDate1,  team1, "notes"));
+		list.add(new PastMeetingImpl(2,pastDate2, team2, ""));
+		list.add(new PastMeetingImpl(3,pastDate3, team3, "more notes"));
+		list.add(new PastMeetingImpl(4,pastDate4, team4, ""));
+		Calendar futureDate1 = Calendar.getInstance();
+		futureDate1.clear();
+		futureDate1.set(3000,4,4);		
+		Calendar futureDate2 = Calendar.getInstance();
+		futureDate2.clear();
+		futureDate2.set(2900,4,4);		
+		Calendar futureDate3 = Calendar.getInstance();
+		futureDate3.clear();
+		futureDate3.set(2900,4,5);		
+		Calendar futureDate4 = Calendar.getInstance();
+		futureDate4.clear();
+		futureDate4.set(3050,4,4);
+		list.add(new FutureMeetingImpl(5,futureDate1, team1));
+		list.add(new FutureMeetingImpl(6,futureDate2, team2));
+		list.add(new FutureMeetingImpl(7,futureDate3, team3));
+		list.add(new FutureMeetingImpl(8,futureDate4, team4));
+		return list;
 	}
 	
 }
