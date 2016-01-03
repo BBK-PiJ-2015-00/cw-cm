@@ -26,11 +26,54 @@ public class ContactManagerImpl implements ContactManager {
 		}
 	};
 	
-	public ContactManagerImpl() {
+	public ContactManagerImpl() {		
+		
 		cm_meetings = new LinkedList<Meeting>();
 		cm_contacts = new TreeSet<>(contactComparator);
 		cm_meetingId = 1;
 		cm_contactId = 0;
+		
+		String filename = "contacts.txt";
+		File file = new File(filename);
+		BufferedReader in = null;
+		try {
+			in = new BufferedReader(new FileReader(file));		
+			cm_contacts.addAll(readContacts(in));
+		} catch (FileNotFoundException ex) {
+			System.out.println("File " + file + " does not exists.");
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			try {
+				if (in != null) {
+					in.close();
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	private Set<Contact> readContacts(BufferedReader in) throws IOException {
+		Set<Contact> result = new HashSet<>();
+		String line;
+		line = in.readLine();
+		if(line == null) {
+			return result;
+		}
+		String[] values = line.split(",");
+		int maxId = 0;
+		
+		for(int i = 0; i < values.length; i+=3) {
+			int id = Integer.parseInt(values[i]);
+			String name = values[i+1];
+			String notes = values[i+2];
+			
+			result.add (new ContactImpl(id, name, notes));
+			maxId = Math.max(maxId, id);
+		}
+		cm_contactId = maxId;		
+		return result;
 	}
 	
 	private boolean contactExists(Set<Contact> contacts) {
