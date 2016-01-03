@@ -30,7 +30,7 @@ public class ContactManagerImpl implements ContactManager {
 		cm_meetings = new LinkedList<Meeting>();
 		cm_contacts = new TreeSet<>(contactComparator);
 		cm_meetingId = 1;
-		cm_contactId = 1;
+		cm_contactId = 0;
 	}
 	
 	private boolean contactExists(Set<Contact> contacts) {
@@ -61,7 +61,6 @@ public class ContactManagerImpl implements ContactManager {
 		if(date.before(dateNow) || contacts.contains(null) || !contactExists(contacts)) {
 			throw new IllegalArgumentException();
 		}
-				
 		cm_meetings.add(new FutureMeetingImpl(cm_meetingId, date, contacts));
 		cm_meetingId++;
 		return cm_meetingId;
@@ -186,7 +185,7 @@ public class ContactManagerImpl implements ContactManager {
 			throw new IllegalArgumentException();
 		}		
 		cm_meetings.add(new PastMeetingImpl(cm_meetingId, date, contacts, text));
-		cm_meetingId++;
+		cm_meetingId++;		
 	}
 	
 	public PastMeeting addMeetingNotes(int id, String text) {
@@ -234,9 +233,9 @@ public class ContactManagerImpl implements ContactManager {
 		//also throws NullPointerException if name or notes are null
 		if(name.equals("") || notes.equals("")) {
 			throw new IllegalArgumentException();
-		}		
-		cm_contacts.add(new ContactImpl(cm_contactId, name, notes));
-		cm_contactId++;
+		}
+		cm_contactId++;	
+		cm_contacts.add(new ContactImpl(cm_contactId, name, notes));		
 		return cm_contactId;
 	}
 	
