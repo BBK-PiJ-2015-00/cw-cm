@@ -179,7 +179,10 @@ public class LargeContactManagerShould {
 		}
 	}
 	
-	
+	@Test
+	public void notThrowErrorsWhenFlushIsCalled() {
+		contactManager.flush();
+	}
 	
 }
 
