@@ -184,6 +184,30 @@ public class LargeContactManagerShould {
 		contactManager.flush();
 	}
 	
+	@Test
+	public void readTxtFileToGetContactsOnOpen() {
+		contactManager = new ContactManagerImpl();
+		
+		ContactImpl hen1 = new ContactImpl(1, "Henry", "abc");		
+		ContactImpl jan2 = new ContactImpl(2, "Janet", "aaa");		
+		ContactImpl joh3 = new ContactImpl(3, "John", "bbb");		
+		ContactImpl hen4 = new ContactImpl(4, "Henry", "abdddc");		
+		ContactImpl jan5 = new ContactImpl(5, "Janet", "ccc");		
+		ContactImpl sus6 = new ContactImpl(6, "Susan", "desa");		
+		ContactImpl hen7 = new ContactImpl(7, "Henry", "hhrd");
+		
+		Set<Contact> list = contactManager.getContacts("");
+		Iterator<Contact> it = list.iterator();
+		
+		assertTrue("hen1", hen1.equals(it.next()));
+		assertTrue("jan2", jan2.equals(it.next()));
+		assertTrue("joh3", joh3.equals(it.next()));
+		assertTrue("hen4", hen4.equals(it.next()));
+		assertTrue("jan5", jan5.equals(it.next()));
+		assertTrue("sus6", sus6.equals(it.next()));
+		assertTrue("hen7", hen7.equals(it.next()));
+	}
+	
 }
 
 
