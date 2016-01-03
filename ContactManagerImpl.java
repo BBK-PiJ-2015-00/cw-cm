@@ -1,3 +1,4 @@
+/*
 import java.util.Calendar;
 import java.util.List;
 import java.util.LinkedList;
@@ -8,6 +9,9 @@ import java.util.Iterator;
 import java.util.Collections;
 import java.util.Arrays;
 import java.util.Comparator;
+*/
+import java.util.*;
+import java.io.*;
 
 public class ContactManagerImpl implements ContactManager {
 	
@@ -283,7 +287,40 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public void flush() {
+		String filename = "contacts.txt";
+		File file = new File(filename);
 		
+		PrintWriter out = null;
+		try {
+			out = new PrintWriter(file);
+			out.write(contactsToString());
+			out.write(meetingsToString());
+		} catch (FileNotFoundException ex) {
+			System.out.println("Cannot write to file " + file + ".");
+		} finally {
+			out.close();
+		}
+	}
+	
+	private String contactsToString() {
+		StringBuffer sb = new StringBuffer("");
+		
+		for(Iterator<Contact> it = cm_contacts.iterator(); it.hasNext(); ) {
+			
+			Contact current = it.next();			
+			sb.append(current.getId() + ",");
+			sb.append(current.getName() + ",");
+			sb.append(current.getNotes() + ",");
+		}
+		
+		return sb.toString();
+	}
+	
+	private String meetingsToString() {
+		StringBuffer sb = new StringBuffer("");
+		
+		
+		return sb.toString();
 	}
 }
 
