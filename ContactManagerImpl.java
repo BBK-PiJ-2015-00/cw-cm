@@ -331,7 +331,6 @@ public class ContactManagerImpl implements ContactManager {
 	public void flush() {
 		String filename = "contacts.txt";		
 		File file = new File(filename);		
-		
 		PrintWriter out = null;
 		try {
 			out = new PrintWriter(file);

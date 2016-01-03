@@ -18,6 +18,7 @@ import org.junit.Before;
 public class LargeContactManagerShould {
 	
 	private ContactManager contactManager;
+	private ContactManager newContactManager;
 		
 	@Before
 	public void createManager() {
@@ -196,7 +197,8 @@ public class LargeContactManagerShould {
 	
 	@Test
 	public void readTxtFileToGetContactsOnOpen() {
-		ContactManager newContactManager = new ContactManagerImpl();
+		contactManager.flush();
+		contactManager = new ContactManagerImpl();
 		
 		ContactImpl hen1 = new ContactImpl(1, "Henry", "abc");		
 		ContactImpl jan2 = new ContactImpl(2, "Janet", "aaa");		
