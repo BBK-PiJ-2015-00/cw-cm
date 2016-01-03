@@ -182,11 +182,12 @@ public class LargeContactManagerShould {
 	@Test
 	public void notThrowErrorsWhenFlushIsCalled() {
 		contactManager.flush();
+		contactManager = null;
 	}
 	
 	@Test
 	public void readTxtFileToGetContactsOnOpen() {
-		contactManager = new ContactManagerImpl();
+		ContactManager newContactManager = new ContactManagerImpl();
 		
 		ContactImpl hen1 = new ContactImpl(1, "Henry", "abc");		
 		ContactImpl jan2 = new ContactImpl(2, "Janet", "aaa");		
@@ -199,6 +200,7 @@ public class LargeContactManagerShould {
 		Set<Contact> list = contactManager.getContacts("");
 		Iterator<Contact> it = list.iterator();
 		
+		assertTrue("list is empty", it.hasNext());
 		assertTrue("hen1", hen1.equals(it.next()));
 		assertTrue("jan2", jan2.equals(it.next()));
 		assertTrue("joh3", joh3.equals(it.next()));
