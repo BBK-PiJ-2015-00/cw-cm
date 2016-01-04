@@ -364,14 +364,18 @@ public class ContactManagerImpl implements ContactManager {
 			Meeting current = it.next();
 			StringBuffer sb = new StringBuffer("");
 			String token = "";
+			String notes = "";
 			if(current.getClass() == FutureMeetingImpl.class) {
 				token = "F";
-			} else { 
+			} else {
+				PastMeeting temp = (PastMeeting) current;
 				token = "P";
+				notes = temp.getNotes();
 			}
 			sb.append(token + ",");
 			sb.append(current.getId() + ",");
 			sb.append(current.getDate() + ",");
+			sb.append(notes + ",");
 			
 			out.println(sb.toString());
 			writeContacts(out);
