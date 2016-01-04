@@ -1,4 +1,4 @@
-public class ContactImpl implements Contact {
+public class ContactImpl implements Contact, Comparable<Contact> {
 	private int c_id;
 	private String c_name;
 	private String c_notes;	
@@ -15,6 +15,11 @@ public class ContactImpl implements Contact {
 		this.c_notes = notes;
 	}
 	
+	@Override
+	public int compareTo(Contact c) {
+		return c_id - c.getId();
+	}
+		
 	public ContactImpl(int id, String name) {
 		this(id, name, "");
 	}
