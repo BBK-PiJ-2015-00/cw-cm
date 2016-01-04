@@ -274,36 +274,36 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		//find meeting index
 		int index = 0;
-		Meeting temp = null;
+		Meeting meeting = null;
 		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); index++) {
 			
 			Meeting current = meetingsIt.next();			
 			if(id == current.getId()) {
-				temp = current;
+				meeting = current;
 				break;
 			}
 		}
-		if(temp == null) {
+		if(meeting == null) {
 			throw new IllegalArgumentException();
 		}
 		
 		Calendar dateNow = Calendar.getInstance();
-		Calendar date = temp.getDate();
+		Calendar date = meeting.getDate();
 		if(dateNow.before(date)) {
 			throw new IllegalStateException();
 		}		
-		Set<Contact> contacts = temp.getContacts();
+		Set<Contact> contacts = meeting.getContacts();
 		String notes = "";
-		if(temp.getClass() == PastMeetingImpl.class) {
-			PastMeeting pTemp = (PastMeeting) temp;
-			notes += pTemp.getNotes();
+		if(meeting.getClass() == PastMeetingImpl.class) {
+			PastMeeting temp = (PastMeeting) meeting;
+			notes += temp.getNotes();
 		}
-		notes += text;
-		
+		notes += text;		
 		PastMeeting result = new PastMeetingImpl(id, date, contacts, notes);
-		//convert meeting to a past meeting
-		cm_meetings.set(index, result);
 		
+		//this will do both convert future meeting to a past meeting
+		//or add notes to an existing past meeting.
+		cm_meetings.set(index, result);	
 		return result;
 	}
 	
