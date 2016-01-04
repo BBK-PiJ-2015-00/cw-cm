@@ -334,8 +334,8 @@ public class ContactManagerImpl implements ContactManager {
 		PrintWriter out = null;
 		try {
 			out = new PrintWriter(file);
-			out.write(contactsToString());
-			out.write(meetingsToString());
+			writeContacts(out);
+			writeMeetings(out);
 		} catch (FileNotFoundException ex) {
 			System.out.println("Cannot write to file " + file + ".");
 		} finally {
@@ -343,7 +343,7 @@ public class ContactManagerImpl implements ContactManager {
 		}
 	}
 	
-	private String contactsToString() {
+	private void writeContacts(PrintWriter out) {
 		StringBuffer sb = new StringBuffer("");
 		
 		for(Iterator<Contact> it = cm_contacts.iterator(); it.hasNext(); ) {
@@ -354,14 +354,28 @@ public class ContactManagerImpl implements ContactManager {
 			sb.append(current.getNotes() + ",");
 		}
 		
-		return sb.toString();
+		out.println(sb.toString());
 	}
 	
-	private String meetingsToString() {
-		StringBuffer sb = new StringBuffer("");
+	private void writeMeetings(PrintWriter out) {
 		
-		
-		return sb.toString();
+		for(Iterator<Meeting> it = cm_meetings.iterator(); it.hasNext(); ) {
+			
+			Meeting current = it.next();
+			StringBuffer sb = new StringBuffer("");
+			String token = "";
+			if(current.getClass() == FutureMeetingImpl.class) {
+				token = "F";
+			} else { 
+				token = "P";
+			}
+			sb.append(token + ",");
+			sb.append(current.getId() + ",");
+			sb.append(current.getDate() + ",");
+			
+			out.println(sb.toString());
+			writeContacts(out);
+		}
 	}
 }
 
