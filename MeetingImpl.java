@@ -1,5 +1,6 @@
 import java.util.Calendar;
 import java.util.Set;
+import java.util.TreeSet;
 
 public abstract class MeetingImpl implements Meeting{
 	
@@ -15,7 +16,8 @@ public abstract class MeetingImpl implements Meeting{
 		
 		m_id = id;
 		m_date = date;
-		m_contacts = contacts;
+		m_contacts = new TreeSet<>();
+		m_contacts.addAll(contacts);
 	}
 	
 	public int getId() {
