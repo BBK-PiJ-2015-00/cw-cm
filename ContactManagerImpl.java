@@ -23,6 +23,7 @@ public class ContactManagerImpl implements ContactManager {
 	private int cm_meetingId;
 	private int cm_contactId;
 	private final String seperator = ";";
+	
 	private Comparator<Contact> contactComparator = new Comparator<Contact>() {
 		@Override
 		public int compare(Contact c1, Contact c2) {
@@ -48,8 +49,6 @@ public class ContactManagerImpl implements ContactManager {
 			System.out.println("File " + file + " does not exists.");
 		} catch (IOException ex) {
 			ex.printStackTrace();
-		} catch (ParseException ex) {
-				ex.printStackTrace();
 		} finally {
 			try {
 				if (in != null) {
@@ -83,9 +82,9 @@ public class ContactManagerImpl implements ContactManager {
 		return result;
 	}
 	
-	private void readMeetings(BufferedReader in) throws IOException, ParseException {		
+	private void readMeetings(BufferedReader in) throws IOException {		
 		
-		int maxId = 1;
+		int maxId = 0;
 		String line;
 		while((line = in.readLine()) != null) {
 			
@@ -108,17 +107,22 @@ public class ContactManagerImpl implements ContactManager {
 			cm_meetings.add(meeting);
 			maxId = Math.max(maxId, id);
 		}
-		cm_meetingId = maxId;
+		cm_meetingId = maxId + 1;
 	}
 	
-	private Calendar stringToDate(String str) throws ParseException {
+	private Calendar stringToDate(String str) {
 		
-		SimpleDateFormat formatter = new SimpleDateFormat("EEEE MMM d H:m:s z y");
-		Date date = formatter.parse(str);
-		
-		Calendar result = Calendar.getInstance();
-		result.setTime(date);
-		return result;
+		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("EEEE MMM d H:m:s z y");
+			Date date = formatter.parse(str);
+			
+			Calendar result = Calendar.getInstance();
+			result.setTime(date);
+			return result;
+		} catch (ParseException ex) {
+			ex.printStackTrace();
+			return null;
+		} 
 	}
 	
 	private boolean contactExists(Set<Contact> contacts) {
