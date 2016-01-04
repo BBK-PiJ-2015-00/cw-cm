@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.Collections;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.*;
+import java.io.*;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -19,6 +21,13 @@ public class ContactManagerShould {
 	
 	@Before
 	public void createManager() {
+		File file = new File("contacts.txt");
+		try {
+			file.delete();
+			file.createNewFile();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 		contactManager = new ContactManagerImpl();
 		addContacts();
 	}
@@ -899,6 +908,12 @@ public class ContactManagerShould {
 			hasError = true;
 		}
 		assertTrue(hasError);
+	}
+	
+	@Test
+	public void getThePastMeetingTwo() {
+		addPastMeetings();
+		assertNotNull(contactManager.getPastMeeting(1));
 	}
 }
 
