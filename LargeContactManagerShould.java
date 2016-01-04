@@ -22,12 +22,14 @@ public class LargeContactManagerShould {
 	@Before
 	public void createManager() {
 		File file = new File("contacts.txt");
+		file.delete();
+		/*
 		try {
 			file.delete();
 			file.createNewFile();
 		} catch (IOException ex) {
 			ex.printStackTrace();
-		}
+		}*/
 		contactManager = new ContactManagerImpl();
 		//add contacts
 		Set<Contact> team1 = new HashSet<>();

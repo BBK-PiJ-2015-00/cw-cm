@@ -40,7 +40,12 @@ public class ContactManagerImpl implements ContactManager {
 			cm_contacts.addAll(readContacts(in));
 			readMeetings(in);
 		} catch (FileNotFoundException ex) {
-			System.out.println("File " + file + " does not exists.");
+			System.out.println("File " + file + " does not exists. Will create a new contacts.txt");
+			try {
+				file.createNewFile();
+			} catch (IOException ioEx) {
+				ioEx.printStackTrace();
+			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}

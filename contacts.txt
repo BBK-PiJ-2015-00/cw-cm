@@ -1,0 +1,17 @@
+1;Henry;abc;2;Janet;aaa;3;John;bbb;4;Henry;abdddc;5;Janet;ccc;6;Susan;desa;7;Henry;hhrd;
+P;1;Thu May 04 00:00:00 BST 2000;notes;
+1;Henry;abc;3;John;bbb;4;Henry;abdddc;
+P;2;Thu May 03 00:00:00 BST 2001;;
+1;Henry;abc;2;Janet;aaa;6;Susan;desa;7;Henry;hhrd;
+P;3;Fri May 04 00:00:00 BST 2001;more notes;
+1;Henry;abc;2;Janet;aaa;6;Susan;desa;7;Henry;hhrd;
+P;4;Thu May 04 00:00:00 BST 1950;;
+1;Henry;abc;2;Janet;aaa;3;John;bbb;4;Henry;abdddc;5;Janet;ccc;
+F;5;Sun May 04 00:00:00 BST 3000;;
+1;Henry;abc;3;John;bbb;4;Henry;abdddc;
+F;6;Tue May 04 00:00:00 BST 2900;;
+1;Henry;abc;2;Janet;aaa;6;Susan;desa;7;Henry;hhrd;
+F;7;Wed May 05 00:00:00 BST 2900;;
+1;Henry;abc;2;Janet;aaa;6;Susan;desa;7;Henry;hhrd;
+F;8;Sat May 04 00:00:00 BST 3050;;
+1;Henry;abc;2;Janet;aaa;3;John;bbb;4;Henry;abdddc;5;Janet;ccc;
