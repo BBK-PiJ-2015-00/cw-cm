@@ -219,17 +219,40 @@ public class LargeContactManagerShould {
 		assertTrue("sus6", sus6.equals(it.next()));
 		assertTrue("hen7", hen7.equals(it.next()));
 	}
-	
+		
 	@Test
 	public void readTxtFileToGetMeetingsOnOpen() {
 		readTxtFileToGetContactsOnOpen();
 		List<Meeting> expectedList = makeMeetings();		
 		
-		int i = 0;
+		int i = 1;
 		for(Iterator<Meeting> it = expectedList.iterator(); it.hasNext(); i++) {
 			MeetingImpl expected = (MeetingImpl) it.next();
 			Meeting actual = contactManager.getMeeting(i);
-			assertTrue(i + " loop", expected.equals(actual));
+			assertNotNull(i + " expected",expected);
+			assertNotNull(i + " actual",actual);
+			
+			assertEquals(i + " id", expected.getId(), actual.getId());
+			assertEquals(i + " date", expected.getDate(), actual.getDate());
+			
+			List<Contact> expectedContacts = new LinkedList<Contact>(expected.getContacts());
+			List<Contact> actualContacts = new LinkedList<Contact>(actual.getContacts());
+			Collections.sort(expectedContacts, (c1, c2) -> c1.getId() - c2.getId());
+			Collections.sort(actualContacts, (c1, c2) -> c1.getId() - c2.getId());
+			Iterator<Contact> expIt = expectedContacts.iterator();
+			Iterator<Contact> actIt = actualContacts.iterator();
+			while(actIt.hasNext()) {
+				ContactImpl a = (ContactImpl) actIt.next();
+				Contact e = expIt.next();
+				assertTrue(i + "contacts", a.equals(e));
+			}
+			
+			if(actual.getClass() == PastMeetingImpl.class) {
+				PastMeeting temp1 = (PastMeeting) actual;
+				PastMeeting temp2 = (PastMeeting) expected;
+				
+				assertEquals(i + " notes", temp2.getNotes(), temp1.getNotes());
+			}
 		}
 	}
 	
