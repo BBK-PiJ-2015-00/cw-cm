@@ -1,6 +1,7 @@
 import java.util.Calendar;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Collections;
@@ -61,10 +62,12 @@ public class ContactManagerShould {
 		
 		int id = contactManager.addFutureMeeting(contacts, futureDate);
 		FutureMeeting expected = new FutureMeetingImpl(id, futureDate, contacts);
+		FutureMeeting actual = contactManager.getFutureMeeting(id);
 		
-		assertEquals(id, contactManager.getFutureMeeting(id).getId());
-		assertEquals(futureDate, contactManager.getFutureMeeting(id).getDate());
-		assertEquals(contacts, contactManager.getFutureMeeting(id).getContacts());
+		assertNotNull(actual);
+		assertEquals(id, actual.getId());
+		assertEquals(futureDate, actual.getDate());
+		assertEquals(contacts, actual.getContacts());
 	}
 	
 	@Test
@@ -916,6 +919,17 @@ public class ContactManagerShould {
 	public void getThePastMeetingTwo() {
 		addPastMeetings();
 		assertNotNull(contactManager.getPastMeeting(1));
+	}
+	
+	@Test
+	public void shouldNotChangeExistingContactsWhenGetContactsIsCalled() {
+		Set<Contact> before = new TreeSet<>();
+		before.addAll(contactManager.getContacts(""));
+		contactManager.getContacts(1,2);
+		Set<Contact> after = new TreeSet<>();		
+		after.addAll(contactManager.getContacts(""));
+		
+		assertEquals(before, after);
 	}
 }
 
