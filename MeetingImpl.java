@@ -2,7 +2,7 @@ import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeSet;
 
-public abstract class MeetingImpl implements Meeting{
+public abstract class MeetingImpl implements Meeting {
 	
 	private int m_id;
 	private Calendar m_date;
