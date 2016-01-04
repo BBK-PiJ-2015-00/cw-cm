@@ -47,6 +47,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	private Set<Contact> readContacts(BufferedReader in) throws IOException {
+		
 		Set<Contact> result = new HashSet<>();
 		String line;
 		line = in.readLine();
@@ -362,6 +363,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public void flush() {
+		
 		String filename = "contacts.txt";		
 		File file = new File(filename);
 		
