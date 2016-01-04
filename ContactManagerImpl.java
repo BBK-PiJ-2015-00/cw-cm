@@ -19,6 +19,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
+import java.lang.AutoCloseable;
+
 public class ContactManagerImpl implements ContactManager {
 	
 	private List<Meeting> cm_meetings;
@@ -36,23 +38,13 @@ public class ContactManagerImpl implements ContactManager {
 		
 		String filename = "contacts.txt";
 		File file = new File(filename);
-		BufferedReader in = null;
-		try {
-			in = new BufferedReader(new FileReader(file));		
+		try (BufferedReader in = new BufferedReader(new FileReader(file));	) {				
 			cm_contacts.addAll(readContacts(in));
 			readMeetings(in);
 		} catch (FileNotFoundException ex) {
 			System.out.println("File " + file + " does not exists.");
 		} catch (IOException ex) {
 			ex.printStackTrace();
-		} finally {
-			try {
-				if (in != null) {
-					in.close();
-				}
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			} 
 		}
 	}
 	
