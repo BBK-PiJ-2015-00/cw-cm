@@ -222,13 +222,17 @@ public class LargeContactManagerShould {
 		
 	@Test
 	public void readTxtFileToGetMeetingsOnOpen() {
+		
 		readTxtFileToGetContactsOnOpen();
-		List<Meeting> expectedList = makeMeetings();		
+		List<Meeting> expectedList = makeMeetings();
 		
 		int i = 1;
 		for(Iterator<Meeting> it = expectedList.iterator(); it.hasNext(); i++) {
 			MeetingImpl expected = (MeetingImpl) it.next();
 			Meeting actual = contactManager.getMeeting(i);
+			
+			assertTrue("Meeting " + i, expected.equals(actual));
+			/*			
 			assertNotNull(i + " expected",expected);
 			assertNotNull(i + " actual",actual);
 			
@@ -252,8 +256,9 @@ public class LargeContactManagerShould {
 				PastMeeting temp2 = (PastMeeting) expected;
 				
 				assertEquals(i + " notes", temp2.getNotes(), temp1.getNotes());
-			}
+			}*/
 		}
+		
 	}
 	
 	private List<Meeting> makeMeetings() {
