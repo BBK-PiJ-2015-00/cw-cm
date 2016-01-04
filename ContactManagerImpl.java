@@ -18,7 +18,8 @@ public class ContactManagerImpl implements ContactManager {
 	private List<Meeting> cm_meetings;
 	private Set<Contact> cm_contacts;
 	private int cm_meetingId;
-	private int cm_contactId;	
+	private int cm_contactId;
+	private final String seperator = ";";
 	private Comparator<Contact> contactComparator = new Comparator<Contact>() {
 		@Override
 		public int compare(Contact c1, Contact c2) {
@@ -39,6 +40,7 @@ public class ContactManagerImpl implements ContactManager {
 		try {
 			in = new BufferedReader(new FileReader(file));		
 			cm_contacts.addAll(readContacts(in));
+			readMeetings(in);
 		} catch (FileNotFoundException ex) {
 			System.out.println("File " + file + " does not exists.");
 		} catch (IOException ex) {
@@ -61,7 +63,7 @@ public class ContactManagerImpl implements ContactManager {
 		if(line == null) {
 			return result;
 		}
-		String[] values = line.split(",");
+		String[] values = line.split(seperator);
 		int maxId = 0;
 		
 		for(int i = 0; i < values.length; i+=3) {
@@ -74,6 +76,14 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		cm_contactId = maxId;		
 		return result;
+	}
+	
+	private void readMeetings(BufferedReader in) throws IOException {
+		
+		String line;
+		while((line = in.readLine()) != null) {
+			
+		}
 	}
 	
 	private boolean contactExists(Set<Contact> contacts) {
@@ -349,9 +359,9 @@ public class ContactManagerImpl implements ContactManager {
 		for(Iterator<Contact> it = cm_contacts.iterator(); it.hasNext(); ) {
 			
 			Contact current = it.next();			
-			sb.append(current.getId() + ",");
-			sb.append(current.getName() + ",");
-			sb.append(current.getNotes() + ",");
+			sb.append(current.getId() + seperator);
+			sb.append(current.getName() + seperator);
+			sb.append(current.getNotes() + seperator);
 		}
 		
 		out.println(sb.toString());
@@ -372,10 +382,10 @@ public class ContactManagerImpl implements ContactManager {
 				token = "P";
 				notes = temp.getNotes();
 			}
-			sb.append(token + ",");
-			sb.append(current.getId() + ",");
-			sb.append(current.getDate() + ",");
-			sb.append(notes + ",");
+			sb.append(token + seperator);
+			sb.append(current.getId() + seperator);
+			sb.append(current.getDate() + seperator);
+			sb.append(notes + seperator);
 			
 			out.println(sb.toString());
 			writeContacts(out);
