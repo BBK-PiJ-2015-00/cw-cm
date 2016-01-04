@@ -19,8 +19,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
-import java.lang.AutoCloseable;
-
 public class ContactManagerImpl implements ContactManager {
 	
 	private List<Meeting> cm_meetings;
