@@ -214,7 +214,7 @@ public class ContactManagerImpl implements ContactManager {
 			Meeting currentMeeting = meetingsIt.next();
 			Calendar currentDate = currentMeeting.getDate();
 			
-			if(sameDate(currentDate, date)) {
+			if(sameDay(currentDate, date)) {
 				result.add(currentMeeting);
 			}
 		}
@@ -223,7 +223,7 @@ public class ContactManagerImpl implements ContactManager {
 		return result;
 	}
 	
-	private boolean sameDate(Calendar date1, Calendar date2) {
+	private boolean sameDay(Calendar date1, Calendar date2) {
 		int year = date1.get(Calendar.YEAR) - date2.get(Calendar.YEAR);
 		int month = date1.get(Calendar.MONTH) - date2.get(Calendar.MONTH);
 		int day = date1.get(Calendar.DAY_OF_MONTH) - date2.get(Calendar.DAY_OF_MONTH);
