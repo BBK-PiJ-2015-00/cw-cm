@@ -54,9 +54,9 @@ public class ContactManagerImpl implements ContactManager {
 			return result;
 		}
 		String[] values = line.split(seperator);
-		int maxId = 1;
-		
+		int maxId = 1;		
 		for(int i = 0; i < values.length; i+=3) {
+			
 			int id = Integer.parseInt(values[i]);
 			String name = values[i+1];
 			String notes = values[i+2];
@@ -113,7 +113,8 @@ public class ContactManagerImpl implements ContactManager {
 	
 	private boolean contactExists(Set<Contact> contacts) {
 		
-		for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {			
+		for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {	
+		
 			if(!contactExists(contactsIt.next())) {
 				return false;
 			}
@@ -125,6 +126,7 @@ public class ContactManagerImpl implements ContactManager {
 		
 		ContactImpl currentContact = (ContactImpl) contact;
 		for(Iterator<Contact> cm_contactsIt = cm_contacts.iterator(); cm_contactsIt.hasNext(); ) {
+			
 			Contact compare = cm_contactsIt.next();
 			if(currentContact.equals(compare)) {
 				return true;
@@ -164,6 +166,7 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	public Meeting getMeeting(int id) {
+		
 		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
 			
 			Meeting current = meetingsIt.next();
@@ -184,14 +187,13 @@ public class ContactManagerImpl implements ContactManager {
 		List<Meeting> result = new LinkedList<Meeting>();		
 		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
 			
-			Meeting currentMeeting = meetingsIt.next();
-			
+			Meeting currentMeeting = meetingsIt.next();			
 			if(currentMeeting.getClass() != FutureMeetingImpl.class) {
 				continue;
 			}
-			Set<Contact> contacts = currentMeeting.getContacts();
-			
+			Set<Contact> contacts = currentMeeting.getContacts();			
 			for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {
+				
 				ContactImpl currentContact = (ContactImpl) contactsIt.next();
 				if (currentContact.equals(contact)) {
 					result.add(currentMeeting);
@@ -199,7 +201,6 @@ public class ContactManagerImpl implements ContactManager {
 				}
 			}
 		}
-		
 		Collections.sort(result, (m1, m2) -> m1.getDate().compareTo (m2.getDate()));
 		return result;
 	}
@@ -211,23 +212,22 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		List<Meeting> result = new LinkedList<Meeting>();
 		for(Iterator<Meeting> meetingsIt = cm_meetings.iterator(); meetingsIt.hasNext(); ) {
-			Meeting currentMeeting = meetingsIt.next();
-			Calendar currentDate = currentMeeting.getDate();
 			
+			Meeting currentMeeting = meetingsIt.next();
+			Calendar currentDate = currentMeeting.getDate();			
 			if(sameDay(currentDate, date)) {
 				result.add(currentMeeting);
 			}
-		}
-		
+		}		
 		Collections.sort(result, (m1, m2) -> m1.getDate().compareTo (m2.getDate()));
 		return result;
 	}
 	
 	private boolean sameDay(Calendar date1, Calendar date2) {
+		
 		int year = date1.get(Calendar.YEAR) - date2.get(Calendar.YEAR);
 		int month = date1.get(Calendar.MONTH) - date2.get(Calendar.MONTH);
-		int day = date1.get(Calendar.DAY_OF_MONTH) - date2.get(Calendar.DAY_OF_MONTH);
-		
+		int day = date1.get(Calendar.DAY_OF_MONTH) - date2.get(Calendar.DAY_OF_MONTH);		
 		return year==0 && month==0 && day==0;
 	}
 	
@@ -243,17 +243,16 @@ public class ContactManagerImpl implements ContactManager {
 			if(currentMeeting.getClass() != PastMeetingImpl.class) {
 				continue;
 			}	
-			Set<Contact> contacts = currentMeeting.getContacts();
-			
+			Set<Contact> contacts = currentMeeting.getContacts();			
 			for(Iterator<Contact> contactsIt = contacts.iterator(); contactsIt.hasNext(); ) {
+				
 				ContactImpl currentContact = (ContactImpl) contactsIt.next();
 				if (currentContact.equals(contact)) {
 					result.add((PastMeeting) currentMeeting);
 					break;
 				}
 			}
-		}
-		
+		}		
 		Collections.sort(result, (m1, m2) -> m1.getDate().compareTo (m2.getDate()));
 		return result;
 	}
@@ -285,8 +284,7 @@ public class ContactManagerImpl implements ContactManager {
 		}
 		if(meeting == null) {
 			throw new IllegalArgumentException();
-		}
-		
+		}		
 		Calendar dateNow = Calendar.getInstance();
 		Calendar date = meeting.getDate();
 		if(dateNow.before(date)) {
@@ -331,8 +329,7 @@ public class ContactManagerImpl implements ContactManager {
 			if(current.getName().equals(name)) {
 				result.add(current);
 			}
-		}
-		
+		}		
 		return result;
 	}
 	
@@ -340,16 +337,16 @@ public class ContactManagerImpl implements ContactManager {
 		
 		if(ids.length == 0) {
 			throw new IllegalArgumentException();
-		}
-		
+		}		
 		Set<Contact> result = new HashSet<>();
 		LinkedList<Contact> contactsCopy = new LinkedList<Contact>(cm_contacts);
-		Arrays.sort(ids);
-		
+		Arrays.sort(ids);		
 		for(int i = 0; i < ids.length; i++) {
+			
 			boolean foundId = false;
 			int id = ids[i];			
 			for(int j = 0; j < contactsCopy.size(); j++) {
+				
 				Contact current = contactsCopy.pop();
 				if(current.getId() == id) {
 					result.add(current);
@@ -361,7 +358,6 @@ public class ContactManagerImpl implements ContactManager {
 				throw new IllegalArgumentException();
 			}
 		}
-		
 		return result;
 	}
 	
@@ -378,16 +374,15 @@ public class ContactManagerImpl implements ContactManager {
 	}
 	
 	private void writeContacts(PrintWriter out, Set<Contact> contacts) {
-		StringBuffer sb = new StringBuffer("");
 		
+		StringBuffer sb = new StringBuffer("");		
 		for(Iterator<Contact> it = contacts.iterator(); it.hasNext(); ) {
 			
 			Contact current = it.next();			
 			sb.append(current.getId() + seperator);
 			sb.append(current.getName() + seperator);
 			sb.append(current.getNotes() + seperator);
-		}
-		
+		}		
 		out.println(sb.toString());
 	}
 	
