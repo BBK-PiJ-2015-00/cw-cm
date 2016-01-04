@@ -12,6 +12,9 @@ import java.util.Comparator;
 */
 import java.util.*;
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 public class ContactManagerImpl implements ContactManager {
 	
@@ -45,6 +48,8 @@ public class ContactManagerImpl implements ContactManager {
 			System.out.println("File " + file + " does not exists.");
 		} catch (IOException ex) {
 			ex.printStackTrace();
+		} catch (ParseException ex) {
+				ex.printStackTrace();
 		} finally {
 			try {
 				if (in != null) {
@@ -52,7 +57,7 @@ public class ContactManagerImpl implements ContactManager {
 				}
 			} catch (IOException ex) {
 				ex.printStackTrace();
-			}
+			} 
 		}
 	}
 	
@@ -78,12 +83,42 @@ public class ContactManagerImpl implements ContactManager {
 		return result;
 	}
 	
-	private void readMeetings(BufferedReader in) throws IOException {
+	private void readMeetings(BufferedReader in) throws IOException, ParseException {		
 		
+		int maxId = 1;
 		String line;
 		while((line = in.readLine()) != null) {
 			
+			String[] values = line.split(seperator);			
+			String token = values[0];
+			int id = Integer.parseInt(values[1]);
+			Calendar date = stringToDate(values[2]);			
+			Set<Contact> contacts = readContacts(in);
+			
+			Meeting meeting;
+			if(token.equals("F")) {
+				meeting = new FutureMeetingImpl(id, date, contacts);
+			} else {
+				String notes = "";
+				if(values.length > 3) {
+					notes = values[3];
+				}
+				meeting = new PastMeetingImpl(id, date, contacts, notes);
+			}
+			cm_meetings.add(meeting);
+			maxId = Math.max(maxId, id);
 		}
+		cm_meetingId = maxId;
+	}
+	
+	private Calendar stringToDate(String str) throws ParseException {
+		
+		SimpleDateFormat formatter = new SimpleDateFormat("EEEE MMM d H:m:s z y");
+		Date date = formatter.parse(str);
+		
+		Calendar result = Calendar.getInstance();
+		result.setTime(date);
+		return result;
 	}
 	
 	private boolean contactExists(Set<Contact> contacts) {
@@ -344,7 +379,7 @@ public class ContactManagerImpl implements ContactManager {
 		PrintWriter out = null;
 		try {
 			out = new PrintWriter(file);
-			writeContacts(out);
+			writeContacts(out, cm_contacts);
 			writeMeetings(out);
 		} catch (FileNotFoundException ex) {
 			System.out.println("Cannot write to file " + file + ".");
@@ -353,10 +388,10 @@ public class ContactManagerImpl implements ContactManager {
 		}
 	}
 	
-	private void writeContacts(PrintWriter out) {
+	private void writeContacts(PrintWriter out, Set<Contact> contacts) {
 		StringBuffer sb = new StringBuffer("");
 		
-		for(Iterator<Contact> it = cm_contacts.iterator(); it.hasNext(); ) {
+		for(Iterator<Contact> it = contacts.iterator(); it.hasNext(); ) {
 			
 			Contact current = it.next();			
 			sb.append(current.getId() + seperator);
@@ -384,11 +419,11 @@ public class ContactManagerImpl implements ContactManager {
 			}
 			sb.append(token + seperator);
 			sb.append(current.getId() + seperator);
-			sb.append(current.getDate() + seperator);
+			sb.append(current.getDate().getTime() + seperator);
 			sb.append(notes + seperator);
 			
 			out.println(sb.toString());
-			writeContacts(out);
+			writeContacts(out, current.getContacts());
 		}
 	}
 }
