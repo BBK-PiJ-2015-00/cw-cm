@@ -36,7 +36,7 @@ public class ContactManagerImpl implements ContactManager {
 		cm_meetings = new LinkedList<Meeting>();
 		cm_contacts = new TreeSet<>(contactComparator);
 		cm_meetingId = 1;
-		cm_contactId = 0;
+		cm_contactId = 1;
 		
 		String filename = "contacts.txt";
 		File file = new File(filename);
@@ -68,7 +68,7 @@ public class ContactManagerImpl implements ContactManager {
 			return result;
 		}
 		String[] values = line.split(seperator);
-		int maxId = 0;
+		int maxId = 1;
 		
 		for(int i = 0; i < values.length; i+=3) {
 			int id = Integer.parseInt(values[i]);
@@ -78,7 +78,7 @@ public class ContactManagerImpl implements ContactManager {
 			result.add (new ContactImpl(id, name, notes));
 			maxId = Math.max(maxId, id);
 		}
-		cm_contactId = maxId;		
+		cm_contactId = maxId + 1;		
 		return result;
 	}
 	
@@ -327,9 +327,10 @@ public class ContactManagerImpl implements ContactManager {
 		if(name.equals("") || notes.equals("")) {
 			throw new IllegalArgumentException();
 		}
+		int result = cm_contactId;
+		cm_contacts.add(new ContactImpl(cm_contactId, name, notes));
 		cm_contactId++;	
-		cm_contacts.add(new ContactImpl(cm_contactId, name, notes));		
-		return cm_contactId;
+		return result;
 	}
 	
 	public Set<Contact> getContacts(String name) {
