@@ -153,9 +153,10 @@ public class ContactManagerImpl implements ContactManager {
 		if(date.before(dateNow) || contacts.contains(null) || !contactExists(contacts)) {
 			throw new IllegalArgumentException();
 		}
+		int result = cm_meetingId;
 		cm_meetings.add(new FutureMeetingImpl(cm_meetingId, date, contacts));
 		cm_meetingId++;
-		return cm_meetingId;
+		return result;
 	}
 	
 	public PastMeeting getPastMeeting(int id) {
@@ -275,9 +276,9 @@ public class ContactManagerImpl implements ContactManager {
 		
 		if(contacts.contains(null) || !contactExists(contacts)) {
 			throw new IllegalArgumentException();
-		}		
+		}			
 		cm_meetings.add(new PastMeetingImpl(cm_meetingId, date, contacts, text));
-		cm_meetingId++;		
+		cm_meetingId++;	
 	}
 	
 	public PastMeeting addMeetingNotes(int id, String text) {
