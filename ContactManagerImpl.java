@@ -369,16 +369,13 @@ public class ContactManagerImpl implements ContactManager {
 	
 	public void flush() {
 		String filename = "contacts.txt";		
-		File file = new File(filename);		
-		PrintWriter out = null;
-		try {
-			out = new PrintWriter(file);
+		File file = new File(filename);
+		
+		try (PrintWriter out = new PrintWriter(file);){			
 			writeContacts(out, cm_contacts);
 			writeMeetings(out);
 		} catch (FileNotFoundException ex) {
 			System.out.println("Cannot write to file " + file + ".");
-		} finally {
-			out.close();
 		}
 	}
 	
