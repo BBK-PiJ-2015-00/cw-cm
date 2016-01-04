@@ -24,17 +24,10 @@ public class ContactManagerImpl implements ContactManager {
 	private int cm_contactId;
 	private final String seperator = ";";
 	
-	private Comparator<Contact> contactComparator = new Comparator<Contact>() {
-		@Override
-		public int compare(Contact c1, Contact c2) {
-			return c1.getId() - c2.getId();
-		}
-	};
-	
 	public ContactManagerImpl() {		
 		
 		cm_meetings = new LinkedList<Meeting>();
-		cm_contacts = new TreeSet<>(contactComparator);
+		cm_contacts = new TreeSet<>();
 		cm_meetingId = 1;
 		cm_contactId = 1;
 		
